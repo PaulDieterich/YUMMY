@@ -1,7 +1,7 @@
-import { Plan } from './plan.class';
+import {Plan} from './plan.class';
 
 describe('Plan', () => {
-  it('should create an instance', () => {
-    expect(new Plan()).toBeTruthy();
-  });
+	it('should create an instance', () => {
+		expect(new Plan()).toBeTruthy();
+	});
 });
