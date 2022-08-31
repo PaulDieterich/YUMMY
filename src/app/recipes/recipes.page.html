@@ -2,8 +2,27 @@
   <ion-toolbar>
     <ion-title>Recipes</ion-title>
   </ion-toolbar>
+
+  <ion-toolbar color="">
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<h> recipes works</h>
+<ion-content [fullscreen]="true" class="card-background-page">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of recipes" col-6>
+        <ion-card>
+          <ion-card-header>
+            {{item.name}}
+          </ion-card-header>
+          <ion-card-content>
+            <img src="/assets/icons/bowl.png"/>
+          </ion-card-content>
+          {{item.bewertung}} - {{item.zeit}} - {{item.aufwand}}
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
 </ion-content>

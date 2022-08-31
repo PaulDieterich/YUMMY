@@ -18,4 +18,7 @@ import { RecipesPageRoutingModule } from './recipes-routing.module';
   ],
   declarations: [RecipesPage]
 })
-export class RecipesPageModule {}
+export class RecipesPageModule {
+
+  
+}

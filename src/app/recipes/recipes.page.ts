@@ -9,4 +9,45 @@ export class RecipesPage {
 
   constructor() {}
 
+  recipes:any[] = [
+    {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    },
+    {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    }, {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    },  {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    },
+    {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    }, {
+      'name': 'spagetti',
+      'bewertung':'4/5',
+      'aufwand': 'einfach',
+      'zeit': '20min'
+
+    }
+  ]
 }
