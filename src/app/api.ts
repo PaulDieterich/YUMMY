@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+
 /*
  * Utility to make API calls to the backend. Syntax based on Java's RestAssured library.
  */
@@ -88,7 +89,7 @@ export class Request {
 
 	private async _send(method: string, path: string, params?: any[] | Map<string, any>): Promise<Response> {
 		// Append path to url
-		if(path.startsWith('/')) {
+		if (path.startsWith('/')) {
 			this._url += path;
 		} else {
 			this._url += '/' + path;
