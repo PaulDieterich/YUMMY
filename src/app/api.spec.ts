@@ -1,4 +1,4 @@
-import {Request} from './api';
+import {Request} from './api.class';
 import {Plan} from './plans/plan.class';
 
 describe('API', () => {
