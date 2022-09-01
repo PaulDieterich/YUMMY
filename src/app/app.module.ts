@@ -9,6 +9,8 @@ import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 
+import {RecipesService} from './recipes/recipes.service';
+import {MealsService} from './meals/meals.service';
 import {PlanService} from './plans/plan.service';
 
 @NgModule({
@@ -19,7 +21,7 @@ import {PlanService} from './plans/plan.service';
 		// or after 30 seconds (whichever comes first).
 		registrationStrategy: 'registerWhenStable:30000'
 	})],
-	providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, PlanService],
+	providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, RecipesService, MealsService, PlanService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {

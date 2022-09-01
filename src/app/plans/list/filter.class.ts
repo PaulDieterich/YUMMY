@@ -1,3 +1,5 @@
+import {FilterType} from '../../filter-type';
+
 export class PlanFilter {
 
 	private attribute: PlanAttribute;
@@ -31,14 +33,4 @@ export enum PlanAttribute {
 	user = 'user'
 }
 
-export enum FilterType {
-	equals = 'eq',
-	notEquals = 'neq',
-	contains = 'in',
-	notContains = 'notin',
-	regex = 'rx',
-	lowerThan = 'lt',
-	lowerThanOrEquals = 'lte',
-	greaterThan = 'gt',
-	greaterThanOrEquals = 'gte'
-}
+

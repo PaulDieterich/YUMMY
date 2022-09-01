@@ -74,7 +74,7 @@ export class PlanService {
 		return promise;
 	}
 
-	private computeIfAbsentAsync<K,V>(map: Map<K,V>, key: K, value: () => Promise<V>): Promise<V> {
+	private computeIfAbsentAsync<K, V>(map: Map<K, V>, key: K, value: () => Promise<V>): Promise<V> {
 		if (!map.has(key)) {
 			return new Promise<V>((resolve, reject) => {
 				value().then(val => map.set(key, val));
