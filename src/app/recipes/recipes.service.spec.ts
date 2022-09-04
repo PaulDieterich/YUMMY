@@ -13,4 +13,10 @@ describe('RecipesService', () => {
 	it('should be created', () => {
 		expect(service).toBeTruthy();
 	});
+
+	it('should work properly', async () => {
+		const result = await service.list();
+		console.log(result);
+		expect(result).toBeTruthy();
+	});
 });

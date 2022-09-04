@@ -62,11 +62,11 @@ export class Request {
 		return await this._send('OPTIONS', path, params);
 	}
 
-	async get(path: string, ...params: any[]): Promise<Response>;
-	async get(path: string, params: Map<string, any>): Promise<Response>;
-	async get(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		this._body = null;
-		return await this._send('GET', path, params);
+	get(path: string, ...params: any[]): Promise<Response>;
+	get(path: string, params: Map<string, any>): Promise<Response>;
+	get(path: string, params?: any[] | Map<string, any>): Promise<Response> {
+		this._body = undefined;
+		return this._send('GET', path, params);
 	}
 
 	async post(path: string, ...params: any[]): Promise<Response>;
@@ -134,7 +134,10 @@ export class Request {
 
 		return new Promise<Response>((resolve, reject) => {
 			fetch(this._url, fetchOptions).then(async response => {
-				resolve(new Response(response));
+				const status = response.status;
+				const headers = response.headers;
+				const body = await response.json();
+				resolve(new Response(status, headers, body));
 			}).catch(error => {
 				reject(error);
 			});
@@ -144,25 +147,25 @@ export class Request {
 
 export class Response {
 
-	private _statusCode: number;
-	private _headers: Map<string, any> = new Map();
-	private _body: Promise<any>;
+	private readonly _statusCode: number;
+	private readonly _headers: Map<string, any> = new Map();
+	private readonly _body: any;
 
-	constructor(_fetchResult: globalThis.Response) {
-		this._statusCode = _fetchResult.status;
-		_fetchResult.headers.forEach((value, key) => this._headers.set(key, value));
-		this._body = _fetchResult.json();
+	constructor(_statusCode: number, _headers: Headers, _body: any) {
+		this._statusCode = _statusCode;
+		_headers.forEach((value, key) => this._headers.set(key, value));
+		this._body = _body;
 	}
 
-	get statusCode(): number {
+	getStatusCode(): number {
 		return this._statusCode;
 	}
 
-	get headers(): Map<string, any> {
+	getHeaders(): Map<string, any> {
 		return this._headers;
 	}
 
-	async body<T>(): Promise<T> {
-		return (await this._body) as T;
+	getBody<T>(): T {
+		return this._body as T;
 	}
 }

@@ -27,11 +27,13 @@ export abstract class Service<E extends Entity, Attribute> {
 					request.queryParam(filter.getAttribute() as unknown as string, filter.getFilter() + ':' + filter.getValue());
 				});
 			}
+
 			if (sorter) {
 				sorter.forEach(sort => {
 					request.queryParam('sort', sort.toString());
 				});
 			}
+
 			if (pagination) {
 				if (pagination.getLimit()) {
 					request.queryParam('limit', pagination.getLimit());
@@ -46,16 +48,17 @@ export abstract class Service<E extends Entity, Attribute> {
 					request.queryParam('page', pagination.getPage());
 				}
 			}
-			const response = await request.get('{basePath}', this.basePath);
-			return response.body<E[]>();
+
+			const response = await request.get(`${this.basePath}`);
+			return response.getBody<E[]>();
 		});
 	}
 
 	get(id: number): Promise<E> {
 		return this.computeIfAbsentAsync(this.entitys, id, async () => {
 			const request = new Request();
-			const response = await request.get('{basePath}/{id}', this.basePath, id);
-			return response.body<E>();
+			const response = await request.get(`${this.basePath}/{id}`, id);
+			return response.getBody<E>();
 		});
 	}
 
@@ -63,8 +66,8 @@ export abstract class Service<E extends Entity, Attribute> {
 		const promise = new Promise<E>((resolve, reject) => {
 			const request = new Request();
 			request.body(entity);
-			request.post('{basePath}', this.basePath).then(response => {
-				resolve(response.body<E>());
+			request.post(`${this.basePath}`).then(response => {
+				resolve(response.getBody<E>());
 			});
 		});
 		promise.then(this.updateCache);
@@ -75,8 +78,8 @@ export abstract class Service<E extends Entity, Attribute> {
 		const promise = new Promise<E>((resolve, reject) => {
 			const request = new Request();
 			request.body(entity);
-			request.put('{basePath}/{id}', this.basePath, entity.getId()).then(response => {
-				resolve(response.body<E>());
+			request.put(`${this.basePath}/{id}`, entity.getId()).then(response => {
+				resolve(response.getBody<E>());
 			});
 		});
 		promise.then(this.updateCache);
@@ -86,8 +89,8 @@ export abstract class Service<E extends Entity, Attribute> {
 	delete(id: number): Promise<boolean> {
 		const promise = new Promise<boolean>((resolve, reject) => {
 			const request = new Request();
-			request.delete('{basePath}/{id}', this.basePath, id).then(response => {
-				resolve(response.statusCode === 200);
+			request.delete(`${this.basePath}/{id}`, id).then(response => {
+				resolve(response.getStatusCode() === 200);
 			});
 		});
 		promise.then(success => {

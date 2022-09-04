@@ -10,10 +10,10 @@ describe('API', () => {
 		expect(new Request()).toBeTruthy();
 
 		const response = await new Request().get('/v3/plans/{id}', 1);
-		expect(response.statusCode).toBe(200);
-		expect(response.headers.get('content-type')).toBe('application/json');
+		expect(response.getStatusCode()).toBe(200);
+		expect(response.getHeaders().get('content-type')).toBe('application/json');
 
-		const body = await response.body<Plan>();
+		const body = await response.getBody<Plan>();
 		expect(body).toBeTruthy();
 	});
 });
