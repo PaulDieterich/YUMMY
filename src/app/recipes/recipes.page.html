@@ -4,22 +4,33 @@
 	</ion-toolbar>
 
 	<ion-toolbar color="">
-		<ion-searchbar></ion-searchbar>
+		<ion-searchbar
+		showCancel
+		animated
+		cancel-button-icon
+		[(ngModel)]="searchInput"
+		(search)="search($event.target)" 
+		(ionChange)="ionChange($event)"
+		placeholder="Recipe search"
+		>
+
+		</ion-searchbar>
+		
 	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="card-background-page">
 	<ion-grid>
 		<ion-row>
-			<ion-col *ngFor="let item of recipes" col-6>
-				<ion-card>
+			<ion-col *ngFor="let item of this.recipesList" col-lg-6>
+				<ion-card (click)="getDetail(item.id)" expand="full">
 					<ion-card-header>
 						{{item.name}}
 					</ion-card-header>
 					<ion-card-content>
 						<img src="/assets/icons/bowl.png"/>
 					</ion-card-content>
-					{{item.bewertung}} - {{item.zeit}} - {{item.aufwand}}
+					{{item.cookingTime}} - {{item.preparationTime}}
 				</ion-card>
 			</ion-col>
 		</ion-row>
