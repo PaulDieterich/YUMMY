@@ -69,22 +69,23 @@ export class Request {
 		return this._send('GET', path, params);
 	}
 
-	async post(path: string, ...params: any[]): Promise<Response>;
-	async post(path: string, params: Map<string, any>): Promise<Response>;
-	async post(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return await this._send('POST', path, params);
+	post(path: string, ...params: any[]): Promise<Response>;
+	post(path: string, params: Map<string, any>): Promise<Response>;
+	post(path: string, params?: any[] | Map<string, any>): Promise<Response> {
+		return this._send('POST', path, params);
 	}
 
-	async put(path: string, ...params: any[]): Promise<Response>;
-	async put(path: string, params: Map<string, any>): Promise<Response>;
-	async put(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return await this._send('PUT', path, params);
+	put(path: string, ...params: any[]): Promise<Response>;
+	put(path: string, params: Map<string, any>): Promise<Response>;
+	put(path: string, params?: any[] | Map<string, any>): Promise<Response> {
+		return this._send('PUT', path, params);
 	}
 
-	async delete(path: string, ...params: any[]): Promise<Response>;
-	async delete(path: string, params: Map<string, any>): Promise<Response>;
-	async delete(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return await this._send('DELETE', path, params);
+	delete(path: string, ...params: any[]): Promise<Response>;
+	delete(path: string, params: Map<string, any>): Promise<Response>;
+	delete(path: string, params?: any[] | Map<string, any>): Promise<Response> {
+		this._body = undefined;
+		return this._send('DELETE', path, params);
 	}
 
 	private async _send(method: string, path: string, params?: any[] | Map<string, any>): Promise<Response> {
