@@ -22,9 +22,30 @@ export abstract class Service<E extends Entity, Attribute> {
 	list(filters?: Filter<Attribute>[], sorter?: Sorter<Attribute>[], pagination?: Pagination): Promise<E[]> {
 		return this.computeIfAbsentAsync(this.lists, filters, async () => {
 			const request = new Request();
-			filters.forEach(filter => {
-				request.queryParam(filter.getAttribute() as unknown as string, filter.getFilter() + ':' + filter.getValue());
-			});
+			if (filters) {
+				filters.forEach(filter => {
+					request.queryParam(filter.getAttribute() as unknown as string, filter.getFilter() + ':' + filter.getValue());
+				});
+			}
+			if (sorter) {
+				sorter.forEach(sort => {
+					request.queryParam('sort', sort.toString());
+				});
+			}
+			if (pagination) {
+				if (pagination.getLimit()) {
+					request.queryParam('limit', pagination.getLimit());
+				}
+				if (pagination.getAfterId()) {
+					request.queryParam('afterId', pagination.getAfterId());
+				}
+				if (pagination.getOffset()) {
+					request.queryParam('offset', pagination.getOffset());
+				}
+				if (pagination.getPage()) {
+					request.queryParam('page', pagination.getPage());
+				}
+			}
 			const response = await request.get('{basePath}', this.basePath);
 			return response.body<E[]>();
 		});
