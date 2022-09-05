@@ -5,5 +5,41 @@
 </ion-header>
 
 <ion-content>
-
+	  
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>
+				{{this.dummyRecipe.getName()}}
+			</ion-card-title>
+			
+			<ion-card-subtitle >
+					<ion-label>
+						<p>
+							<ion-icon name="time-outline"></ion-icon> {{this.dummyRecipe.getCookingTime()}} CookingTime
+						</p>
+						<p>
+							<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.getPreparationTime()}} PreparationTime						</p>
+					</ion-label>
+			</ion-card-subtitle>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-item>
+				<ion-button (click)="editRecipe()" slot="end"> edit </ion-button>
+			</ion-item>
+			<ion-img src="../../../assets/shapes.svg">
+			</ion-img>
+			<ion-card-title> Ingrediens</ion-card-title>
+			<ion-item *ngFor="let item of dummyRecipe.getIngredients()">
+				 <ion-label> 
+					<h2>{{item.getName()}}</h2>
+					<p> {{item.getAmount()}} {{item.getUnit()}} </p>
+				 </ion-label>
+			</ion-item>
+			
+		   <ion-card-title> Preperation</ion-card-title>
+		   <ion-item *ngFor="let item of dummyRecipe.getInstructions(); let i = index">
+			Step {{i}}: {{item}}
+			</ion-item>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
