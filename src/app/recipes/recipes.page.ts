@@ -25,6 +25,6 @@ export class RecipesPage implements OnInit{
 	}
 	getDetail(id: number): void{
 		console.log(id);
-		this.router.navigateByUrl("/recipes/${id}");
+		this.router.navigateByUrl(`/recipes/${id}`);
 	}
 }
