@@ -1,9 +1,76 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>editor</ion-title>
+		<ion-title>detail</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+	  
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>
+				{{this.dummyRecipe.getName()}}
+			</ion-card-title>
+			
+			<ion-card-subtitle >
+					<ion-label>
+						<p>
+							<ion-icon name="time-outline"></ion-icon> {{this.dummyRecipe.getCookingTime()}} CookingTime
+						</p>
+						<p>
+							<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.getPreparationTime()}} PreparationTime						</p>
+					</ion-label>
+			</ion-card-subtitle>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-item>
+				<ion-button (click)="save()" slot="end"> save </ion-button>
+				<ion-button (click)="dismiss()" slot="end"> dismiss </ion-button>
+			</ion-item>
+			<ion-img src="../../../assets/shapes.svg">
+			</ion-img>
+			<ion-card-title> Ingredients</ion-card-title> 
+			<ion-item>
+				<ion-button (click)="newIngredient()" slot="end"> new ingredient </ion-button>
+			</ion-item>
+			
+			<ion-item *ngFor="let item of dummyRecipe.getIngredients(); let i  = index">
+				 <ion-label> 
+					<p>{{i}}</p>
+					<ion-input value="{{item.getName()}}"></ion-input>
+				 </ion-label>
+			</ion-item>
+	
+		<ion-item>
+			<ion-label> 
+				<ion-input placeholder="new Ingredient"></ion-input>
+			 </ion-label>
+			
+		</ion-item>
+		   <ion-card-title> Preperation</ion-card-title>
+		   <ion-item>
+			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
+			</ion-item>
+		   <ion-item *ngFor="let item of dummyRecipe.getInstructions(); let i = index">
+			<ion-label> 
+				<p>{{i}}</p>
+				<ion-input value="{{item}}"></ion-input> 
+				
+			 </ion-label>
+			 <ion-label>
+				<ion-button slot="end" (click)="deleteInstuction(i)"> X</ion-button>
+			 </ion-label>
+			</ion-item>
+			<ion-item>
+				<ion-label> 
+					<ion-input 
+					type="text"
+					name="inputStep" 
+					[(ngModel)]="inputStep">
+				</ion-input>
+			</ion-label>
+				
+			</ion-item>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
