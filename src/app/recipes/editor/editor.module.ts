@@ -5,17 +5,18 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 
 import {EditorPageRoutingModule} from './editor-routing.module';
-
 import {EditorPage} from './editor.page';
+import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		IonicModule,
-		EditorPageRoutingModule
+		EditorPageRoutingModule,
 	],
-	declarations: [EditorPage]
+	declarations: [EditorPage,
+		IngredientListComponent]
 })
 export class EditorPageModule {
 }

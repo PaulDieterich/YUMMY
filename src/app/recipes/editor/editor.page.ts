@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { Ingredient } from '../ingredient.class';
 import { Recipe } from '../recipe.class';
 import { RecipesService } from '../recipes.service';
-import { ListEntryComponent } from '../list-entry/list-entry.component';
-import { stringify } from 'querystring';
 @Component({
 	selector: 'app-editor',
 	templateUrl: './editor.page.html',
@@ -11,6 +9,8 @@ import { stringify } from 'querystring';
 })
 export class EditorPage implements OnInit {
 	inputStep = '';
+	inputIngredient: Ingredient = new Ingredient();
+	deleteIngredients: Ingredient;
 	recipe: Recipe = new Recipe();
 	dummyRecipe: Recipe = new Recipe();
 	nudeln: Ingredient = new Ingredient();
@@ -24,7 +24,7 @@ export class EditorPage implements OnInit {
 	save(){ console.log('save');}
 	dismiss(){ console.log('dismiss');}
 	newIngredient(){ console.log('newIngredient');
-
+		this.dummyRecipe.getIngredients().push(this.inputIngredient);
 	}
 	newStep(){
 		this.dummyRecipe.getInstructions().push(this.inputStep);
@@ -35,7 +35,6 @@ export class EditorPage implements OnInit {
 		const instrcutions = this.dummyRecipe.getInstructions();
 		for (let index = 0; index < instrcutions.length; index++) {
 			if(index === id){
-				this.dummyRecipe.
 			}
 		}
 	}
@@ -54,6 +53,7 @@ export class EditorPage implements OnInit {
 		this.dummyRecipe.setCookingTime('20min');
 	}
 }
+
 
 
 

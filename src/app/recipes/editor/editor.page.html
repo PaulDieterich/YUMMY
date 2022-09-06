@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>detail</ion-title>
+		<ion-title>edit</ion-title>
 	</ion-toolbar>
 </ion-header>
 
@@ -29,24 +29,17 @@
 			</ion-item>
 			<ion-img src="../../../assets/shapes.svg">
 			</ion-img>
-			<ion-card-title> Ingredients</ion-card-title> 
-			<ion-item>
-				<ion-button (click)="newIngredient()" slot="end"> new ingredient </ion-button>
-			</ion-item>
+			<ion-card-title> Zutaten</ion-card-title> 
 			
-			<ion-item *ngFor="let item of dummyRecipe.getIngredients(); let i  = index">
-				 <ion-label> 
-					<p>{{i}}</p>
-					<ion-input value="{{item.getName()}}"></ion-input>
-				 </ion-label>
+			<ion-grid>
+				<ion-row *ngFor="let data of dummyRecipe.getIngredients(); let i  = index">
+					<app-ingredient-list [ingredient]="data" [(ngModel)]="deleteIngredients"></app-ingredient-list>
+				</ion-row>
+			</ion-grid>
+			<ion-item lines="none">
+				<ion-button (click)="newIngredient()"> + </ion-button>
 			</ion-item>
 	
-		<ion-item>
-			<ion-label> 
-				<ion-input placeholder="new Ingredient"></ion-input>
-			 </ion-label>
-			
-		</ion-item>
 		   <ion-card-title> Preperation</ion-card-title>
 		   <ion-item>
 			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
