@@ -1,9 +1,11 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>detail</ion-title>
+	  <ion-buttons slot="start">
+		<ion-back-button mode="md" defaultHref="tabs/recipes"></ion-back-button>
+	  </ion-buttons>
 	</ion-toolbar>
-</ion-header>
-
+  </ion-header>
+  
 <ion-content>
 	  
 	<ion-card>
@@ -14,23 +16,21 @@
 			
 			<ion-card-subtitle >
 					<ion-label>
-						<p>
-							<ion-icon name="time-outline"></ion-icon> {{this.dummyRecipe.getCookingTime()}} CookingTime
+						<p><ion-icon name="time-outline"></ion-icon> {{this.dummyRecipe.getCookingTime()}} CookingTime
 						</p>
-						<p>
-							<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.getPreparationTime()}} PreparationTime						</p>
+						<p>	<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.getPreparationTime()}} PreparationTime						</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-item>
-				<ion-button (click)="editRecipe()" slot="end"> edit </ion-button>
-			</ion-item>
+			<ion-fab  horizontal="end" vertical="top">
+				<ion-fab-button [routerLink]="['../recipes/editor',this.dummyRecipe.getId()]"(click)="editRecipe()"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
+			  </ion-fab>
 			<ion-img src="../../../assets/shapes.svg">
 			</ion-img>
 			<ion-card-title> Ingrediens</ion-card-title>
 			<ion-item *ngFor="let item of dummyRecipe.getIngredients()">
-				 <ion-label> 
+				 <ion-label line="none"> 
 					<h2>{{item.getName()}}</h2>
 					<p> {{item.getAmount()}} {{item.getUnit()}} </p>
 				 </ion-label>

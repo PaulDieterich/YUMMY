@@ -22,7 +22,7 @@ export class DetailPage implements OnInit {
 		console.log('ngOnInit');
 		this.recipes.get(1).then(recipe =>{
 			this.recipe = recipe;
-			console.log(`recipe ${recipe}`);
+			console.log(`recipe ${recipe.getName()}`);
 		});
 	}
 	editRecipe(){
@@ -35,7 +35,7 @@ export class DetailPage implements OnInit {
 		this.paprikla.setAmount(3);
 		this.paprikla.setName('paprikla');
 		this.paprikla.setUnit('stück');
-		this.dummyRecipe.setId(99);
+		this.dummyRecipe.setId(1);
 		this.dummyRecipe.setName('nudelsalat');
 		this.dummyRecipe.setInstructions(['koch nudeln', 'alles klein schneiden']);
 		this.dummyRecipe.setIngredients([this.nudeln,this.paprikla]);
