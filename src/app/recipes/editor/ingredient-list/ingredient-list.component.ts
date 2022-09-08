@@ -8,7 +8,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 export class IngredientListComponent implements OnInit {
 
   @Input() ingredient: Ingredient;
-  deleteIngredients: Ingredient;
+  @Output() deleteIngredients: Ingredient;
   constructor() { }
 
   ngOnInit() {
