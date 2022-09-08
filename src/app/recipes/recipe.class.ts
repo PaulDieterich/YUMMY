@@ -11,6 +11,7 @@ export class Recipe implements Entity {
 	private cookingTime?: string;
 	private source: string;
 	private tags: string;
+	private image: string;
 	private variantOf?: number;
 
 	constructor() {
@@ -20,6 +21,7 @@ export class Recipe implements Entity {
 		this.ingredients = [];
 		this.source = '';
 		this.tags = '';
+		this.image = ''; 
 	}
 
 	getId(): number {
@@ -92,6 +94,12 @@ export class Recipe implements Entity {
 
 	setVariantOf(variantOf: number): void {
 		this.variantOf = variantOf;
+	}
+	getImage(): string{
+		return this.image;
+	}
+	setImage(image: string): void{
+		this.image = image;
 	}
 }
 
