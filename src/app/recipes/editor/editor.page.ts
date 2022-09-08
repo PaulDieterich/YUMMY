@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import { Ingredient } from '../ingredient.class';
 import { Recipe } from '../recipe.class';
 import { RecipesService } from '../recipes.service';
+
+import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 @Component({
 	selector: 'app-editor',
 	templateUrl: './editor.page.html',
@@ -33,10 +35,6 @@ export class EditorPage implements OnInit {
 	}
 	deleteInstuction(id: number){
 		const instrcutions = this.dummyRecipe.getInstructions();
-		for (let index = 0; index < instrcutions.length; index++) {
-			if(index === id){
-			}
-		}
 	}
 	dummyData(){
 		this.nudeln.setAmount(500);
@@ -51,6 +49,20 @@ export class EditorPage implements OnInit {
 		this.dummyRecipe.setIngredients([this.nudeln,this.paprikla]);
 		this.dummyRecipe.setPreparationTime('20min');
 		this.dummyRecipe.setCookingTime('20min');
+	}
+
+
+
+	//TODO: camera functions maybe outsource in service ?
+	async takePicture(){
+		const capturedPhoto = await Camera.getPhoto({
+			quality: 100,
+			resultType: CameraResultType.Base64,
+			source: CameraSource.Camera
+		});
+		//TODO: replase dummyRecipe
+		this.dummyRecipe.setImage('data:image/png/base64,' +capturedPhoto.base64String);
+		console.log(this.dummyRecipe.getImage());
 	}
 }
 
