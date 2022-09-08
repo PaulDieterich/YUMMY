@@ -111,5 +111,6 @@ export enum RecipeAttribute {
 	cookingTime = 'cookingTime',
 	source = 'source',
 	tags = 'tags',
-	variantOf = 'variantOf'
+	variantOf = 'variantOf',
+	image = 'image'
 }
