@@ -49,6 +49,7 @@ export class EditorPage implements OnInit {
 		this.dummyRecipe.setIngredients([this.nudeln,this.paprikla]);
 		this.dummyRecipe.setPreparationTime('20min');
 		this.dummyRecipe.setCookingTime('20min');
+		this.dummyRecipe.setImage('../../../assets/shapes.svg');
 	}
 
 

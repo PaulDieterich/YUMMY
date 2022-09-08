@@ -24,11 +24,10 @@
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-item>
-				<ion-button (click)="save()" slot="end"> save </ion-button>
-				<ion-button (click)="dismiss()" slot="end"> dismiss </ion-button>
-			</ion-item>
-			<ion-img src="../../../assets/shapes.svg">
+			<ion-fab  horizontal="end" vertical="top">
+				<ion-fab-button (click)="takePicture()"color="light"><ion-icon name="camera"></ion-icon></ion-fab-button>
+			  </ion-fab>
+			<ion-img src={{dummyRecipe.getImage()}}>
 			</ion-img>
 			<ion-card-title> Zutaten</ion-card-title> 
 			
