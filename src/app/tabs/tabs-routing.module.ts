@@ -16,19 +16,15 @@ const routes: Routes = [
 				loadChildren: () => import('../meals/meals.module').then(m => m.MealsPageModule)
 			},
 			{
-				path: 'plans',
-				loadChildren: () => import('../plans/plans.module').then(m => m.PlansPageModule)
-			},
-			{
 				path: '',
-				redirectTo: '/tabs/recipes',
+				redirectTo: '/recipes',
 				pathMatch: 'full'
 			}
 		]
 	},
 	{
 		path: '',
-		redirectTo: '/tabs/recipes',
+		redirectTo: '/recipes',
 		pathMatch: 'full'
 	}
 ];

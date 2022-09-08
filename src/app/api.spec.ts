@@ -1,19 +1,17 @@
-import {Request} from './api.class';
-import {Plan} from './plans/plan.class';
+import {TestBed} from '@angular/core/testing';
+import {HttpClient} from '@angular/common/http';
 
-describe('API', () => {
-	it('should create an instance', () => {
-		expect(new Request()).toBeTruthy();
+import {API} from './api.class';
+
+describe('Api', () => {
+	let http: HttpClient;
+
+	beforeEach(() => {
+		TestBed.configureTestingModule({});
+		http = TestBed.inject(HttpClient);
 	});
 
-	it('should work properly', async () => {
-		expect(new Request()).toBeTruthy();
-
-		const response = await new Request().get('/v3/plans/{id}', 1);
-		expect(response.getStatusCode()).toBe(200);
-		expect(response.getHeaders().get('content-type')).toBe('application/json');
-
-		const body = await response.getBody<Plan>();
-		expect(body).toBeTruthy();
+	it('should create an instance', () => {
+		expect(new API(http)).toBeTruthy();
 	});
 });

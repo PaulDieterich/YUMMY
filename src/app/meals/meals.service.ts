@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Service} from '../api.service';
+import {HttpClient} from '@angular/common/http';
+
+import {ApiService} from '../api.service';
 import {Meal, MealAttribute} from './meal.class';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class MealsService extends Service<Meal, MealAttribute> {
+export class MealsService extends ApiService<Meal, MealAttribute> {
 
-	constructor() {
-		super('/v2/meals');
+	constructor(http: HttpClient) {
+		super(http, '/meals');
 	}
 }

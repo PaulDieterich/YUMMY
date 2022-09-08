@@ -1,8 +1,7 @@
-import { Ingredient } from './../ingredient.class';
-import { Recipe } from './../recipe.class';
+import { Ingredient } from '../ingredient.class';
+import { Recipe } from '../recipe.class';
 import {Component, OnInit} from '@angular/core';
 import { RecipesService } from '../recipes.service';
-import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-detail',
@@ -20,27 +19,27 @@ export class DetailPage implements OnInit {
 	ngOnInit() {
 		this.dummyData();
 		console.log('ngOnInit');
-		this.recipes.get(1).then(recipe =>{
+		this.recipes.get(1).subscribe(recipe => {
 			this.recipe = recipe;
-			console.log(`recipe ${recipe.getName()}`);
+			console.log('ngOnInit', this.recipe);
 		});
 	}
 	editRecipe(){
 		console.log('edit recipe');
 	}
 	dummyData(){
-		this.nudeln.setAmount(500);
-		this.nudeln.setName('Nudeln');
-		this.nudeln.setUnit('g');
-		this.paprikla.setAmount(3);
-		this.paprikla.setName('paprikla');
-		this.paprikla.setUnit('stück');
-		this.dummyRecipe.setId(1);
-		this.dummyRecipe.setName('nudelsalat');
-		this.dummyRecipe.setInstructions(['koch nudeln', 'alles klein schneiden']);
-		this.dummyRecipe.setIngredients([this.nudeln,this.paprikla]);
-		this.dummyRecipe.setPreparationTime('20min');
-		this.dummyRecipe.setCookingTime('20min');
+		this.nudeln.amount = 500;
+		this.nudeln.name = 'Nudeln';
+		this.nudeln.unit = 'g';
+		this.paprikla.amount = 3;
+		this.paprikla.name = 'paprikla';
+		this.paprikla.unit = 'stück';
+		this.dummyRecipe.name = 'nudelsalat';
+		this.dummyRecipe.instructions.push('koch nudeln');
+		this.dummyRecipe.instructions.push('alles klein schneiden');
+		this.dummyRecipe.ingredients.push(this.nudeln);
+		this.dummyRecipe.ingredients.push(this.paprikla);
+		this.dummyRecipe.time = '20min';
 	}
 }
 

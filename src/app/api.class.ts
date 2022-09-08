@@ -1,99 +1,125 @@
-/* eslint-disable no-underscore-dangle */
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-/*
- * Utility to make API calls to the backend. Syntax based on Java's RestAssured library.
- */
-export class Request {
+export class API<E> {
 
-	private _url = 'http://144.24.179.204:8080';
-	private _headers = new Headers();
-	private _body: object;
-	private _pathParams: Map<string, any> = new Map();
-	private _queryParams: Map<string, any> = new Map();
+	private mUrl = 'http://144.24.179.204:8080';
+	private mHeaders = new HttpHeaders();
+	private mBody: E;
+	private mPathParams: Map<string, any> = new Map();
+	private mQueryParams = new HttpParams();
 
-	constructor() {
-		this._headers.set('Content-Type', 'application/json');
-		this._headers.set('Accept', 'application/json');
+	constructor(private http: HttpClient) {
+		this.mHeaders.set('Content-Type', 'application/json');
+		this.mHeaders.set('Accept', 'application/json');
 	}
 
-	headers(headers: Map<string, any>): Request {
+	headers(headers: Map<string, any>): API<E> {
 		headers.forEach((value, key) => this.header(key, value));
 		return this;
 	}
 
-	header(key: string, value: any): Request {
-		this._headers.set(key, value);
+	header(key: string, value: any): API<E> {
+		this.mHeaders.set(key, value);
 		return this;
 	}
 
-	auth(username: string, password: string): Request {
+	auth(username: string, password: string): API<E> {
 		this.header('Authorization', 'Basic ' + btoa(username + ':' + password));
 		return this;
 	}
 
-	body(body: object): Request {
-		this._body = body;
+	body(body: E): API<E> {
+		this.mBody = body;
 		return this;
 	}
 
-	pathParam(key: string, value: any): Request {
-		this._pathParams.set(key, encodeURIComponent(value));
-		return this;
-	}
-
-	pathParams(params: Map<string, any>): Request {
+	pathParams(params: Map<string, string | number>): API<E> {
 		params.forEach((value, key) => this.pathParam(key, value));
 		return this;
 	}
 
-	queryParam(key: string, value: any): Request {
-		this._queryParams.set(key, encodeURIComponent(value));
+	pathParam(key: string, value: string | number): API<E> {
+		this.mPathParams.set(key, encodeURIComponent(value));
 		return this;
 	}
 
-	queryParams(params: Map<string, any>): Request {
+	queryParams(params: Map<string, string | number | boolean | Array<string | number | boolean>>): API<E> {
 		params.forEach((value, key) => this.queryParam(key, value));
 		return this;
 	}
 
-	async options(path: string, ...params: any[]): Promise<Response>;
-	async options(path: string, params: Map<string, any>): Promise<Response>;
-	async options(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return await this._send('OPTIONS', path, params);
+	queryParam(key: string, value: string | number | boolean | Array<string | number | boolean>): API<E> {
+		if (value instanceof Array<string | number | boolean>) {
+			value.forEach(v => this.queryParam(key, v));
+		} else {
+			this.mQueryParams = this.mQueryParams.append(key, value);
+		}
+		return this;
 	}
 
-	get(path: string, ...params: any[]): Promise<Response>;
-	get(path: string, params: Map<string, any>): Promise<Response>;
-	get(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		this._body = undefined;
-		return this._send('GET', path, params);
+	options(path: string, ...params: any[]): Observable<string[]>;
+	options(path: string, params: Map<string, any>): Observable<string[]>;
+	options(path: string, params?: any[] | Map<string, any>): Observable<string[]> {
+		this.prepare(path, params);
+		return new Observable<string[]>(observer => {
+			this.http.options<E>(this.mUrl, {
+				headers: this.mHeaders,
+				observe: 'response',
+				params: this.mQueryParams
+			}).subscribe(response => {
+				observer.next(response.headers.getAll('Allow'));
+				observer.complete();
+			});
+		});
 	}
 
-	post(path: string, ...params: any[]): Promise<Response>;
-	post(path: string, params: Map<string, any>): Promise<Response>;
-	post(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return this._send('POST', path, params);
+	get(path: string, ...params: any[]): Observable<E>;
+	get(path: string, params: Map<string, any>): Observable<E>;
+	get(path: string, params?: any[] | Map<string, any>): Observable<E> {
+		this.prepare(path, params);
+		return this.http.get<E>(this.mUrl, {
+			headers: this.mHeaders,
+			params: this.mQueryParams
+		});
 	}
 
-	put(path: string, ...params: any[]): Promise<Response>;
-	put(path: string, params: Map<string, any>): Promise<Response>;
-	put(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		return this._send('PUT', path, params);
+	post(path: string, ...params: any[]): Observable<E>;
+	post(path: string, params: Map<string, any>): Observable<E>;
+	post(path: string, params?: any[] | Map<string, any>): Observable<E> {
+		this.prepare(path, params);
+		return this.http.post<E>(this.mUrl, this.mBody, {
+			headers: this.mHeaders,
+			params: this.mQueryParams
+		});
 	}
 
-	delete(path: string, ...params: any[]): Promise<Response>;
-	delete(path: string, params: Map<string, any>): Promise<Response>;
-	delete(path: string, params?: any[] | Map<string, any>): Promise<Response> {
-		this._body = undefined;
-		return this._send('DELETE', path, params);
+	put(path: string, ...params: any[]): Observable<E>;
+	put(path: string, params: Map<string, any>): Observable<E>;
+	put(path: string, params?: any[] | Map<string, any>): Observable<E> {
+		this.prepare(path, params);
+		return this.http.put<E>(this.mUrl, this.mBody, {
+			headers: this.mHeaders,
+			params: this.mQueryParams
+		});
 	}
 
-	private async _send(method: string, path: string, params?: any[] | Map<string, any>): Promise<Response> {
+	delete(path: string, ...params: any[]): Observable<E>;
+	delete(path: string, params: Map<string, any>): Observable<E>;
+	delete(path: string, params?: any[] | Map<string, any>): Observable<E> {
+		this.prepare(path, params);
+		return this.http.get<E>(this.mUrl, {
+			headers: this.mHeaders,
+			params: this.mQueryParams
+		});
+	}
+
+	private prepare(path: string, params?: any[] | Map<string, any>): void {
 		// Append path to url
 		if (path.startsWith('/')) {
-			this._url += path;
+			this.mUrl += path;
 		} else {
-			this._url += '/' + path;
+			this.mUrl += '/' + path;
 		}
 
 		// If there are path params
@@ -104,69 +130,16 @@ export class Request {
 			} else {
 				// Replace positional path params with the given args
 				if (params instanceof Array) {
-					this._url = this._url.replace(/{[^}]*}/g, () => encodeURIComponent(params.shift()));
+					this.mUrl = this.mUrl.replace(/{[^}]*}/g, () => encodeURIComponent(params.shift()));
 				} else {
-					this._url = this._url.replace(/{[^}]*}/g, () => encodeURIComponent(params));
+					this.mUrl = this.mUrl.replace(/{[^}]*}/g, () => encodeURIComponent(params));
 				}
 			}
 		}
-		if (this._pathParams.size > 0) {
-			for (const [key, value] of this._pathParams) {
-				this._url = this._url.replace('{' + key + '}', value);
+		if (this.mPathParams.size > 0) {
+			for (const [key, value] of this.mPathParams) {
+				this.mUrl = this.mUrl.replace('{' + key + '}', value);
 			}
 		}
-
-		// If there are query params
-		if (this._queryParams.size > 0) {
-			this._url += '?';
-			for (const [key, value] of this._queryParams) {
-				this._url += key + '=' + value + '&';
-			}
-			this._url = this._url.slice(0, -1);
-		}
-
-		const fetchOptions: RequestInit = {
-			method,
-			headers: this._headers
-		};
-		if (this._body) {
-			fetchOptions.body = JSON.stringify(this._body);
-		}
-
-		return new Promise<Response>((resolve, reject) => {
-			fetch(this._url, fetchOptions).then(async response => {
-				const status = response.status;
-				const headers = response.headers;
-				const body = await response.json();
-				resolve(new Response(status, headers, body));
-			}).catch(error => {
-				reject(error);
-			});
-		});
-	}
-}
-
-export class Response {
-
-	private readonly _statusCode: number;
-	private readonly _headers: Map<string, any> = new Map();
-	private readonly _body: any;
-
-	constructor(_statusCode: number, _headers: Headers, _body: any) {
-		this._statusCode = _statusCode;
-		_headers.forEach((value, key) => this._headers.set(key, value));
-		this._body = _body;
-	}
-
-	getStatusCode(): number {
-		return this._statusCode;
-	}
-
-	getHeaders(): Map<string, any> {
-		return this._headers;
-	}
-
-	getBody<T>(): T {
-		return this._body as T;
 	}
 }

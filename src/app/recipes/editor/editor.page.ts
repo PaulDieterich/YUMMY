@@ -10,6 +10,7 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 	styleUrls: ['./editor.page.scss'],
 })
 export class EditorPage implements OnInit {
+
 	inputStep = '';
 	inputIngredient: Ingredient = new Ingredient();
 	deleteIngredients: Ingredient;
@@ -17,6 +18,7 @@ export class EditorPage implements OnInit {
 	dummyRecipe: Recipe = new Recipe();
 	nudeln: Ingredient = new Ingredient();
 	paprikla: Ingredient = new Ingredient();
+
 	constructor(private recipes: RecipesService) {
 	}
 
@@ -26,33 +28,31 @@ export class EditorPage implements OnInit {
 	save(){ console.log('save');}
 	dismiss(){ console.log('dismiss');}
 	newIngredient(){ console.log('newIngredient');
-		this.dummyRecipe.getIngredients().push(this.inputIngredient);
+		this.dummyRecipe.ingredients.push(this.inputIngredient);
 	}
 	newStep(){
-		this.dummyRecipe.getInstructions().push(this.inputStep);
+		this.dummyRecipe.instructions.push(this.inputStep);
 		this.inputStep = '';
 		console.log(`newStep: ${this.inputStep}`);
 	}
 	deleteInstuction(id: number){
-		const instrcutions = this.dummyRecipe.getInstructions();
+		const instrcutions = this.dummyRecipe.instructions;
 	}
 	dummyData(){
-		this.nudeln.setAmount(500);
-		this.nudeln.setName('Nudeln');
-		this.nudeln.setUnit('g');
-		this.paprikla.setAmount(3);
-		this.paprikla.setName('paprikla');
-		this.paprikla.setUnit('stück');
-		this.dummyRecipe.setId(99);
-		this.dummyRecipe.setName('nudelsalat');
-		this.dummyRecipe.setInstructions(['koch nudeln', 'alles klein schneiden']);
-		this.dummyRecipe.setIngredients([this.nudeln,this.paprikla]);
-		this.dummyRecipe.setPreparationTime('20min');
-		this.dummyRecipe.setCookingTime('20min');
-		this.dummyRecipe.setImage('../../../assets/shapes.svg');
+		this.nudeln.amount = 500;
+		this.nudeln.name = 'Nudeln';
+		this.nudeln.unit = 'g';
+		this.paprikla.amount = 3;
+		this.paprikla.name = 'paprikla';
+		this.paprikla.unit = 'stück';
+		this.dummyRecipe.name = 'nudelsalat';
+		this.dummyRecipe.instructions.push('koch nudeln');
+		this.dummyRecipe.instructions.push('alles klein schneiden');
+		this.dummyRecipe.ingredients.push(this.nudeln);
+		this.dummyRecipe.ingredients.push(this.paprikla);
+		this.dummyRecipe.time = '20min';
+		this.dummyRecipe.images.push('../../../assets/shapes.svg');
 	}
-
-
 
 	//TODO: camera functions maybe outsource in service ?
 	async takePicture(){
@@ -61,9 +61,10 @@ export class EditorPage implements OnInit {
 			resultType: CameraResultType.Base64,
 			source: CameraSource.Camera
 		});
-		//TODO: replase dummyRecipe
-		this.dummyRecipe.setImage('data:image/png/base64,' +capturedPhoto.base64String);
-		console.log(this.dummyRecipe.getImage());
+
+		const base64 = 'data:image/png;base64,' + capturedPhoto.base64String;
+		this.dummyRecipe.images.push(base64);
+		console.log('Added image', base64);
 	}
 }
 

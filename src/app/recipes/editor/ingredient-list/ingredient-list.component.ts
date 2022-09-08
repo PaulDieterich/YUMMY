@@ -1,4 +1,4 @@
-import { Ingredient } from './../../ingredient.class';
+import { Ingredient } from '../../ingredient.class';
 import { Component, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-ingredient-list',
@@ -12,10 +12,10 @@ export class IngredientListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.ingredient.getName());
+    console.log(this.ingredient.name);
   }
   deleteItem(ingr: Ingredient){
     this.deleteIngredients = ingr;
-    console.log(`delete ${ingr.getName()}`);
+    console.log(`delete ${ingr.name}`);
   }
 }

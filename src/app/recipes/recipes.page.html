@@ -1,28 +1,22 @@
 <ion-header>
 	<ion-toolbar>
-			<ion-title slot="start">Recipes</ion-title>
-			<ion-title slot="en">ion</ion-title>
-		
-	</ion-toolbar>
+		<ion-title slot="start">Recipes</ion-title>
+		<ion-title slot="en">Recipes</ion-title>
 
-	<ion-toolbar color="">
 		<ion-searchbar
-		showCancel
-		animated
-		cancel-button-icon
-		(ionChange)="ionChange($event)"
-		placeholder="Recipe search"
-		>
-
+			inputmode="search"
+			placeholder="Search recipe"
+			show-cancel-button="focus"
+			[(ngModel)]="mSearch"
+			(ionChange)="ngOnChanges()">
 		</ion-searchbar>
-		
 	</ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="card-background-page">
 	<ion-grid>
 		<ion-row>
-			<ion-col *ngFor="let item of this.recipesList" col-lg-6>
+			<ion-col *ngFor="let item of this.recipes" col-lg-6>
 				<ion-card [routerLink]="['detail', item.id]" expand="full">
 					<ion-card-header>
 						{{item.name}}
@@ -30,7 +24,7 @@
 					<ion-card-content>
 						<ion-img src="../../../assets/shapes.svg"></ion-img>
 					</ion-card-content>
-					{{item.cookingtime}} - {{item.preparationTime}}
+					{{item.time}}
 				</ion-card>
 			</ion-col>
 		</ion-row>
