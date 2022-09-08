@@ -21,7 +21,7 @@ export class Recipe implements Entity {
 		this.ingredients = [];
 		this.source = '';
 		this.tags = '';
-		this.image = ''; 
+		this.image = '';
 	}
 
 	getId(): number {

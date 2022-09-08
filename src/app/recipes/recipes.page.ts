@@ -11,9 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RecipesPage implements OnInit{
 	public searchinput: string;
 	public recipesList: Recipe[];
-	constructor(private recipes: RecipesService,private router: Router, private route: ActivatedRoute) { }
-	async ngOnInit() {
-		this.getList();
+	
+	constructor(private recipes: RecipesService,private router: Router, private route: ActivatedRoute) {	 }
+	ngOnInit() {
+		console.log('ngOnInit RecipesPage');
+		this.recipes.list().then(recipe =>{
+			this.recipesList = recipe;
+			console.log(this.recipesList);
+		});
 	}
 	async ionChange(event) {
 		this.recipesList = await this.recipes.list();

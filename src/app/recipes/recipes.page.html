@@ -10,8 +10,6 @@
 		showCancel
 		animated
 		cancel-button-icon
-		[(ngModel)]="searchInput"
-		(search)="search($event.target)" 
 		(ionChange)="ionChange($event)"
 		placeholder="Recipe search"
 		>
@@ -25,14 +23,14 @@
 	<ion-grid>
 		<ion-row>
 			<ion-col *ngFor="let item of this.recipesList" col-lg-6>
-				<ion-card (click)="getDetail(item.id)" expand="full">
+				<ion-card [routerLink]="['detail', item.id]" expand="full">
 					<ion-card-header>
 						{{item.name}}
 					</ion-card-header>
 					<ion-card-content>
-						<img src="/assets/icons/bowl.png"/>
+						<ion-img src="../../../assets/shapes.svg"></ion-img>
 					</ion-card-content>
-					{{item.cookingTime}} - {{item.preparationTime}}
+					{{item.cookingtime}} - {{item.preparationTime}}
 				</ion-card>
 			</ion-col>
 		</ion-row>
