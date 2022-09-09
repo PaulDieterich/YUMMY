@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { Ingredient } from '../ingredient.class';
 import { Recipe } from '../recipe.class';
 import { RecipesService } from '../recipes.service';
@@ -9,35 +9,43 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 	templateUrl: './editor.page.html',
 	styleUrls: ['./editor.page.scss'],
 })
-export class EditorPage implements OnInit {
+export class EditorPage implements OnInit,OnChanges {
 
+
+	@Input() inputrecipe: Recipe = new Recipe();
+	@Input() data: Ingredient = new Ingredient();
 	inputStep = '';
-	inputIngredient: Ingredient = new Ingredient();
+	inputIngredients = new Array<Ingredient>();
 	deleteIngredients: Ingredient;
 	recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
-		recipes.auth('user', 'user');
 	}
-
 	ngOnInit() {
-		this.id = this.activatedRoute.snapshot.params.id;
-		this.recipes.get(this.id).subscribe(recipe => {
-			this.recipe = recipe;
-			console.log('ngOnInit', this.recipe);
-		});
+		this.ngOnChanges();
 	}
-	save(){ console.log('save');}
-	dismiss(){ console.log('dismiss');}
-	newIngredient(){ console.log('newIngredient');
-		this.recipe.ingredients.push(this.inputIngredient);
-
+	ngOnChanges() {
+		this.id = this.activatedRoute.snapshot.params.id;
+		if(this.id > 0){
+			this.recipes.get(this.id).subscribe(recipe => {
+				this.recipe = recipe;
+				console.log('ngOnInit', this.recipe);
+			});
+		}
+	}
+	newIngredient(){
+		console.log('newIngredient');
+		this.inputIngredients.push(this.data);
 	}
 
 	newStep(){
 		this.recipe.instructions.push(this.inputStep);
 		this.inputStep = '';
 		console.log(`newStep: ${this.inputStep}`);
+	}
+	deleteIngredient(name: string){
+		const todelete = this.recipe.ingredients.filter(ingredient => ingredient.name !== name);
+		console.log(`delete ${todelete}`);
 	}
 	deleteInstuction(id: number){
 		const instrcutions = this.recipe.instructions;
@@ -56,17 +64,16 @@ export class EditorPage implements OnInit {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
+		this.recipe.ingredients.push(...this.inputIngredients);
 		console.log(`${this.recipe.name} got updated`);
-		this.recipes.update(this.recipe).subscribe(recipe =>{
-			this.recipe = recipe;
-		});
+		if(this.id > 0){
+			this.recipes.update(this.recipe).subscribe(recipe =>{
+				this.recipe = recipe;
+			});
+		}else{
+			this.recipes.create(this.recipe).subscribe(recipe =>{
+				this.recipe = recipe;
+			});
+		}
 	}
-	deleteItem(ingr: Ingredient){
-		this.deleteIngredients = ingr;
-		console.log(`delete ${ingr.name}`);
-	  }
 }
-
-
-
-

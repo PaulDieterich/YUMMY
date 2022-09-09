@@ -12,7 +12,7 @@ import {Filter, FilterType} from '../list/util.class';
 export class RecipesPage implements OnInit, OnChanges {
 	public mSearch: string;
 	public recipes = new Array<Recipe>();
-
+	newId: number;
 	constructor(private service: RecipesService) { }
 
 	ngOnInit() {
