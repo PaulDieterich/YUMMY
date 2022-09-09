@@ -1,9 +1,39 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>Meals</ion-title>
+		<ion-title slot="start">YUMMY</ion-title>
+		<ion-buttons slot="primary">
+			<ion-button>Log In</ion-button>
+		</ion-buttons>
+		<ion-buttons slot="secondary">
+			<ion-button [routerLink]="['editor']">
+				<ion-icon slot="icon-only" name="add-outline"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<ion-toolbar>
+		<ion-searchbar
+			inputmode="search"
+			placeholder="Search recipe"
+			show-cancel-button="focus"
+			[(ngModel)]="filter.value"
+			(ionChange)="ngOnChanges()">
+		</ion-searchbar>
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
-	<h1> Meals works</h1>
+<ion-content [fullscreen]="true" class="card-background-page">
+	<ion-grid>
+		<ion-row>
+			<ion-col *ngFor="let meal of meals" size="12">
+				<ion-card [routerLink]="[meal.id]">
+					<ion-card-header>
+						{{meal.name}}
+					</ion-card-header>
+					<ion-card-content>
+						<ion-img class="image" [src]="meal.images[0]"></ion-img>
+					</ion-card-content>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
 </ion-content>

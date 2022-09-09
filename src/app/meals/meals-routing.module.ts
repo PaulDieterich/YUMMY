@@ -8,19 +8,21 @@ const routes: Routes = [
 		component: MealsPage,
 	},
 	{
-		path: 'detail',
+		path: ':id',
 		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
 	},
 	{
-		path: 'editor',
+		path: 'create',
+		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+	},
+	{
+		path: ':id/edit',
 		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
 	}
-
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
-export class MealsPageRoutingModule {
-}
+export class MealsPageRoutingModule { }
