@@ -1,7 +1,17 @@
 <ion-header>
 	<ion-toolbar>
+		<ion-title slot="start">YUMMY</ion-title>
+        <ion-buttons slot="secondary">
+          <ion-button [routerLink]="['../editor']"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+        </ion-buttons>
+	
+        <ion-buttons slot="primary">
+          <ion-button>Log In</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+	<ion-toolbar>
 	  <ion-buttons slot="start">
-		<ion-back-button mode="md" defaultHref="tabs/recipes"></ion-back-button>
+		<ion-back-button mode="md" defaultHref="recipes"></ion-back-button>
 	  </ion-buttons>
 	</ion-toolbar>
   </ion-header>

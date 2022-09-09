@@ -1,48 +1,57 @@
 <ion-header>
 	<ion-toolbar>
+		<ion-title slot="start">YUMMY</ion-title>
+        <ion-buttons slot="secondary">
+			<ion-button (click)="updateRecipe()"color="dark"><ion-icon name="save-outline"></ion-icon></ion-button>
+        </ion-buttons>
+	
+        <ion-buttons slot="primary">
+          <ion-button>Log In</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+			<ion-toolbar>
 	  <ion-buttons slot="start">
 		<ion-back-button mode="md" defaultHref='recipes/'></ion-back-button>
 	  </ion-buttons>
 	</ion-toolbar>
-  </ion-header>
+ </ion-header>
 <ion-content>
 
 	<ion-card>
 		<ion-card-header>
 			<ion-card-title>
-				<ion-input [(ngModel)]="recipe.name" placeholder="name"></ion-input>
+				<ion-input [(ngModel)]="inputrecipe.name" placeholder="name" value="{{this.recipe.name}}"></ion-input>
 			</ion-card-title>
 
 			<ion-card-subtitle >
-				<ion-item lines="none">
-					<ion-icon name="timer-outline"></ion-icon> 	<ion-input [(ngModel)]="recipe.time" placeholder="time in minutes"></ion-input> 	
-				</ion-item>
+					<ion-label>
+						<p>
+							<ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time						</p>
+					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-fab  horizontal="end" vertical="top">
 				<ion-fab-button (click)="takePicture()"color="light"><ion-icon name="camera"></ion-icon></ion-fab-button>
 			</ion-fab> 
-			<ion-fab  horizontal="start" vertical="top">
-				<ion-fab-button (click)="updateRecipe()"color="light"><ion-icon name="save-outline"></ion-icon></ion-fab-button>
-			</ion-fab> 
+			
 			<ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>
 			<ion-card-title> Zutaten</ion-card-title>
 			<ion-item lines="none">
-				<ion-button type="submit" value="addIngredient" (click)="newIngredient()" class="submit"> add Ingrediant </ion-button>
+				<ion-button type="submit" value="addIngredient" (click)="newIngredient(recipe.ingredients.length)" class="submit"> add Ingrediant </ion-button>
 			</ion-item>
 			<ion-grid>
 				<ion-row *ngFor="let data of recipe.ingredients; let i  = index">
 					<ion-row>
 						<ion-col size="2">
 						  <ion-item>
-							<ion-input [(ngModel)]="data.amount" value="{{this.data.amount}}"></ion-input>
+							<ion-input [(ngModel)]="recipe.ingredients[i].amount" value="{{this.data.amount}}"></ion-input>
 						  </ion-item>
 						</ion-col>
 						<ion-col size="2">
 						  <ion-item lines="none" >
-							<ion-select interface="popover" [(ngModel)]="data.unit" placeholder="{{data.unit}}">
+							<ion-select interface="popover" [(ngModel)]="recipe.ingredients[i].unit" placeholder="{{this.data.unit}}">
 								<ion-select-option value="el">EL</ion-select-option>
 								<ion-select-option value="tl">TL</ion-select-option>
 							  	<ion-select-option value="gramms">g</ion-select-option>
@@ -54,8 +63,8 @@
 						</ion-col>
 						<ion-col size="5">
 						  <ion-item>
-							<ion-input [(ngModel)]="data.name" placeholder="ingrediant name"></ion-input>
-							<ion-button  (click)="deleteIngredient(data.name)"><ion-icon name="trash-outline"></ion-icon></ion-button>			
+							<ion-input [(ngModel)]="recipe.ingredients[i].name" placeholder="ingrediant name"></ion-input>
+							<ion-button  (click)="deleteIngredient(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>			
 						  </ion-item>
 
 						</ion-col>
@@ -65,7 +74,7 @@
 
 		   <ion-card-title> Preperation</ion-card-title>
 		   <ion-item lines="none">
-			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
+			<ion-button type="submit" value="addStep"(click)="newStep(recipe.instructions.length)" class="submit">add Step</ion-button>
 			</ion-item>
 		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
 			<ion-label>
