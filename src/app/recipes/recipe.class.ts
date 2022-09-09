@@ -22,7 +22,7 @@ export class Recipe implements Entity {
 		this.tags = [];
 	}
 
-	public getId(): number {
+	getId(): number {
 		return this.id;
 	}
 }

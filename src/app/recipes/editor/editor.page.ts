@@ -55,8 +55,10 @@ export class EditorPage implements OnInit {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
-		console.log(`${this.recipe} got updated`);
-		this.recipes.update(this.recipe);
+		console.log(`${this.recipe.name} got updated`);
+		this.recipes.update(this.recipe).subscribe(recipe =>{
+			this.recipe = recipe;
+		});
 	}
 	deleteItem(ingr: Ingredient){
 		this.deleteIngredients = ingr;

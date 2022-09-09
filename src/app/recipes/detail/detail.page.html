@@ -22,9 +22,9 @@
 		</ion-card-header>
 		<ion-card-content>
 			<ion-fab  horizontal="end" vertical="top">
-				<ion-fab-button [routerLink]="['../recipes/editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
+				<ion-fab-button [routerLink]="['../editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
 			  </ion-fab>
-			<ion-img src=`${{this.recipe.images[1]}}`>
+			  <ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>
 			<ion-card-title> Ingrediens</ion-card-title>
 			<ion-item *ngFor="let item of recipe.ingredients">

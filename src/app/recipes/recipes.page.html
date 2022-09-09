@@ -1,15 +1,22 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title slot="start">Recipes</ion-title>
-		<ion-title slot="en">Recipes</ion-title>
-
+		<ion-title slot="start">YUMMY</ion-title>
+        <ion-buttons slot="secondary">
+          <ion-button><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+        </ion-buttons>
+	
+        <ion-buttons slot="primary">
+          <ion-button>Log In</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+	<ion-toolbar>
 		<ion-searchbar
 			inputmode="search"
 			placeholder="Search recipe"
 			show-cancel-button="focus"
 			[(ngModel)]="mSearch"
 			(ionChange)="ngOnChanges()">
-		</ion-searchbar>
+		</ion-searchbar>	
 	</ion-toolbar>
 </ion-header>
 
