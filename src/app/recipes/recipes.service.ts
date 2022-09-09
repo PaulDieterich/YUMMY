@@ -44,7 +44,10 @@ export class RecipesService {
 			});
 
 			new API<Ingredient[]>(this.http).get('/recipes/{id}/ingredients', id).subscribe(data => {
-				recipe.ingredients.splice(0, recipe.ingredients.length, ...data);
+				if (data) {
+					recipe.ingredients.splice(0, recipe.ingredients.length, ...data);
+				}
+
 				if (++count === 2) {
 					observer.next(recipe);
 					observer.complete();

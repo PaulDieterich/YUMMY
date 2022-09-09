@@ -45,7 +45,10 @@ export class MealsService {
 			});
 
 			new API<Recipe[]>(this.http).get('/meals/{id}/recipes', id).subscribe(data => {
-				meal.recipes.splice(0, meal.recipes.length, ...data);
+				if (data) {
+					meal.recipes.splice(0, meal.recipes.length, ...data);
+				}
+
 				if (++count === 3) {
 					observer.next(meal);
 					observer.complete();
@@ -53,7 +56,9 @@ export class MealsService {
 			});
 
 			new API<Ingredient[]>(this.http).get('/meals/{id}/ingredients', id).subscribe(data => {
-				meal.ingredients.splice(0, meal.ingredients.length, ...data);
+				if (data) {
+					meal.ingredients.splice(0, meal.ingredients.length, ...data);
+				}
 				if (++count === 3) {
 					observer.next(meal);
 					observer.complete();

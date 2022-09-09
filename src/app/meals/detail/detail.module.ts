@@ -3,16 +3,16 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
-import {AppRoutingModule} from '../../app-routing.module';
 
 import {DetailPage} from './detail.page';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		IonicModule,
-		AppRoutingModule
+		RouterModule
 	],
 	declarations: [DetailPage]
 })
