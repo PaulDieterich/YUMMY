@@ -23,6 +23,15 @@ export class Meal implements Entity {
 	getId(): number {
 		return this.id;
 	}
+
+	apply(data: Meal): void {
+		this.id = data.id;
+		this.name = data.name;
+		this.images.splice(0, this.images.length, ...data.images);
+		this.user = data.user;
+		this.recipes.splice(0, this.recipes.length, ...data.recipes);
+		this.ingredients.splice(0, this.ingredients.length, ...data.ingredients);
+	}
 }
 
 export enum MealAttribute {

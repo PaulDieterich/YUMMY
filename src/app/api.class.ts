@@ -104,13 +104,19 @@ export class API<E> {
 		});
 	}
 
-	delete(path: string, ...params: any[]): Observable<E>;
-	delete(path: string, params: Map<string, any>): Observable<E>;
-	delete(path: string, params?: any[] | Map<string, any>): Observable<E> {
+	delete(path: string, ...params: any[]): Observable<boolean>;
+	delete(path: string, params: Map<string, any>): Observable<boolean>;
+	delete(path: string, params?: any[] | Map<string, any>): Observable<boolean> {
 		this.prepare(path, params);
-		return this.http.get<E>(this.mUrl, {
-			headers: this.mHeaders,
-			params: this.mQueryParams
+		return new Observable<boolean>(observer => {
+			this.http.get<boolean>(this.mUrl, {
+				headers: this.mHeaders,
+				observe: 'response',
+				params: this.mQueryParams
+			}).subscribe(response => {
+				observer.next(response.status === 200);
+				observer.complete();
+			});
 		});
 	}
 

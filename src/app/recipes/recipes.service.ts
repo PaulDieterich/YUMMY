@@ -87,7 +87,7 @@ export class RecipesService {
 			let count = 0;
 			const target = recipe.ingredients.length + 2;
 
-			new API<Ingredient[]>(this.http)
+			new API(this.http)
 				.auth(this.service.user, this.service.password)
 				.delete('/recipes/{id}/ingredients', recipe.id)
 				.subscribe(_ => {
@@ -116,7 +116,7 @@ export class RecipesService {
 		});
 	}
 
-	delete(id: number): Observable<Recipe> {
+	delete(id: number): Observable<boolean> {
 		return this.service.delete(id);
 	}
 }
