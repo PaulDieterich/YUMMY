@@ -12,9 +12,8 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 export class EditorPage implements OnInit,OnChanges {
 
 
-	@Input() inputrecipe: Recipe = new Recipe();
 	@Input() data: Ingredient = new Ingredient();
-	recipe: Recipe = new Recipe();
+	@Input()recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
 		recipes.auth('user','user');
@@ -26,24 +25,26 @@ export class EditorPage implements OnInit,OnChanges {
 		this.id = this.activatedRoute.snapshot.params.id;
 		if(this.id > 0){
 			this.recipes.get(this.id).subscribe(recipe => {
-				this.inputrecipe = recipe;
-				console.log('ngOnInit', this.inputrecipe);
+				this.recipe = recipe;
+				console.log('ngOnInit', this.recipe);
 			});
 		}
 	}
 	newIngredient(){
+		const inputIngredient = new Ingredient();
+		this.recipe.ingredients.push(inputIngredient);
 	}
 
 	newStep(){
 		const inputStep = '';
-		//this.recipe.instructions.push(inputStep);
+		this.recipe.instructions.push(inputStep);
 	}
 	deleteIngredient(id: number){
-		const todelete = this.inputrecipe.ingredients.splice(id,1);
+		const todelete = this.recipe.ingredients.splice(id,1);
 		console.log(`delete ${todelete}`);
 	}
 	deleteInstuction(id: number){
-		const instrcutions = this.inputrecipe.instructions.splice(id,1);
+		const instrcutions = this.recipe.instructions.splice(id,1);
 	}
 
 	//TODO: camera functions maybe outsource in service ?
@@ -59,12 +60,15 @@ export class EditorPage implements OnInit,OnChanges {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
-		console.log(`${this.inputrecipe.name} got updated`);
+		this.recipe.source = 'user';
+		console.log(`${this.recipe.name} got updated`);
 		if(this.id > 0){
-			this.recipes.update(this.inputrecipe).subscribe(recipe =>{
+			this.recipes.update(this.recipe).subscribe(recipe =>{
+				this.recipe = recipe;
 			});
 		}else{
-			this.recipes.create(this.inputrecipe).subscribe(recipe =>{
+			this.recipes.create(this.recipe).subscribe(recipe =>{
+				this.recipe = recipe;
 			});
 		}
 	}

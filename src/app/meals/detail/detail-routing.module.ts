@@ -7,6 +7,9 @@ const routes: Routes = [
 	{
 		path: '',
 		component: DetailPage
+	},{
+		path: 'editor/:id',
+		loadChildren: () => import('../editor/editor.module').then(m => m.EditorPageModule)
 	}
 ];
 

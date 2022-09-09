@@ -109,7 +109,7 @@ export class API<E> {
 	delete(path: string, params?: any[] | Map<string, any>): Observable<boolean> {
 		this.prepare(path, params);
 		return new Observable<boolean>(observer => {
-			this.http.get<boolean>(this.mUrl, {
+			this.http.delete<boolean>(this.mUrl, {
 				headers: this.mHeaders,
 				observe: 'response',
 				params: this.mQueryParams

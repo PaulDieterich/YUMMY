@@ -18,6 +18,10 @@ const routes: Routes = [
 		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
 	},
 	{
+		path: 'editor/:id',
+		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+	},
+	{
 		path: 'editor',
 		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
 	},{

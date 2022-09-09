@@ -20,7 +20,7 @@
 	<ion-card>
 		<ion-card-header>
 			<ion-card-title>
-				<ion-input [(ngModel)]="inputrecipe.name" placeholder="name" value="{{this.recipe.name}}"></ion-input>
+				<ion-input [(ngModel)]="recipe.name" placeholder="name" value="{{this.recipe.name}}"></ion-input>
 			</ion-card-title>
 
 			<ion-card-subtitle >
@@ -79,7 +79,7 @@
 		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
 			<ion-label>
 				<p>{{i+1}}</p>
-				<ion-input value="{{item}}"></ion-input>
+				<ion-input [(ngModel)]="recipe.instructions[i]" value="{{item}}"></ion-input>
 			 </ion-label>		
 					<ion-button  (click)="deleteInstuction(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>			
 			</ion-item>

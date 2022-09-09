@@ -61,22 +61,21 @@ export class RecipesService {
 			let count = 0;
 			const target = recipe.ingredients.length + 1;
 
-			recipe.ingredients.forEach(ingredient => {
-				new API<Ingredient>(this.http)
-					.auth(this.service.user, this.service.password)
-					.body(ingredient)
-					.post('/recipes/{id}/ingredients', recipe.id, ingredient)
-					.subscribe(_ => {
-						if (++count === target) {
-							observer.next(recipe);
-							observer.complete();
-						}
-					});
-			});
-
 			this.service.create(recipe)
-				.subscribe(data => {
-					recipe.apply(data);
+			.subscribe(data => {
+				recipe.ingredients.forEach(ingredient => {
+					new API<Ingredient>(this.http)
+						.auth(this.service.user, this.service.password)
+						.body(ingredient)
+						.post('/recipes/{id}/ingredients', data.id, ingredient)
+						.subscribe(_ => {
+							if (++count === target) {
+								observer.next(recipe);
+								observer.complete();
+							}
+						});
+				});
+				recipe.apply(data);
 					if (++count === target) {
 						observer.next(recipe);
 						observer.complete();
