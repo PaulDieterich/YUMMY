@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Ingredient } from '../ingredient.class';
 import { Recipe } from '../recipe.class';
 import { RecipesService } from '../recipes.service';
-
+import { ActivatedRoute } from '@angular/router';
 import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 @Component({
 	selector: 'app-editor',
@@ -15,43 +15,31 @@ export class EditorPage implements OnInit {
 	inputIngredient: Ingredient = new Ingredient();
 	deleteIngredients: Ingredient;
 	recipe: Recipe = new Recipe();
-	dummyRecipe: Recipe = new Recipe();
-	nudeln: Ingredient = new Ingredient();
-	paprikla: Ingredient = new Ingredient();
-
-	constructor(private recipes: RecipesService) {
+	id: number;
+	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
 	}
 
 	ngOnInit() {
-		this.dummyData();
+		this.id = this.activatedRoute.snapshot.params.id;
+		this.recipes.get(this.id).subscribe(recipe => {
+			this.recipe = recipe;
+			console.log('ngOnInit', this.recipe);
+		});
 	}
 	save(){ console.log('save');}
 	dismiss(){ console.log('dismiss');}
 	newIngredient(){ console.log('newIngredient');
-		this.dummyRecipe.ingredients.push(this.inputIngredient);
+		this.recipe.ingredients.push(this.inputIngredient);
+
 	}
+
 	newStep(){
-		this.dummyRecipe.instructions.push(this.inputStep);
+		this.recipe.instructions.push(this.inputStep);
 		this.inputStep = '';
 		console.log(`newStep: ${this.inputStep}`);
 	}
 	deleteInstuction(id: number){
-		const instrcutions = this.dummyRecipe.instructions;
-	}
-	dummyData(){
-		this.nudeln.amount = 500;
-		this.nudeln.name = 'Nudeln';
-		this.nudeln.unit = 'g';
-		this.paprikla.amount = 3;
-		this.paprikla.name = 'paprikla';
-		this.paprikla.unit = 'stück';
-		this.dummyRecipe.name = 'nudelsalat';
-		this.dummyRecipe.instructions.push('koch nudeln');
-		this.dummyRecipe.instructions.push('alles klein schneiden');
-		this.dummyRecipe.ingredients.push(this.nudeln);
-		this.dummyRecipe.ingredients.push(this.paprikla);
-		this.dummyRecipe.time = '20min';
-		this.dummyRecipe.images.push('../../../assets/shapes.svg');
+		const instrcutions = this.recipe.instructions;
 	}
 
 	//TODO: camera functions maybe outsource in service ?
@@ -63,9 +51,17 @@ export class EditorPage implements OnInit {
 		});
 
 		const base64 = 'data:image/png;base64,' + capturedPhoto.base64String;
-		this.dummyRecipe.images.push(base64);
+		this.recipe.images.push(base64);
 		console.log('Added image', base64);
 	}
+	updateRecipe(){
+		console.log(`${this.recipe} got updated`);
+		this.recipes.update(this.recipe);
+	}
+	deleteItem(ingr: Ingredient){
+		this.deleteIngredients = ingr;
+		console.log(`delete ${ingr.name}`);
+	  }
 }
 
 

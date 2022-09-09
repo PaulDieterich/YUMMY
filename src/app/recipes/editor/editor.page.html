@@ -10,38 +10,76 @@
 	<ion-card>
 		<ion-card-header>
 			<ion-card-title>
-				{{this.dummyRecipe.name}}
+				{{this.recipe.name}}
 			</ion-card-title>
 
 			<ion-card-subtitle >
 					<ion-label>
 						<p>
-							<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.time}} Time						</p>
+							<ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time						</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-fab  horizontal="end" vertical="top">
 				<ion-fab-button (click)="takePicture()"color="light"><ion-icon name="camera"></ion-icon></ion-fab-button>
-			  </ion-fab>
-			<ion-img src={{dummyRecipe.getImage()}}>
+			</ion-fab> 
+			<ion-fab  horizontal="start" vertical="top">
+				<ion-fab-button (click)="updateRecipe()"color="light"><ion-icon name="save-outline"></ion-icon></ion-fab-button>
+			</ion-fab> 
+			<ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>
 			<ion-card-title> Zutaten</ion-card-title>
-
+			<ion-item lines="none">
+				<ion-button type="submit" value="addIngredient" (click)="newIngredient()" class="submit"> add Ingrediant </ion-button>
+			</ion-item>
 			<ion-grid>
-				<ion-row *ngFor="let data of dummyRecipe.ingredients; let i  = index">
-					<app-ingredient-list [ingredient]="data" [(ngModel)]="deleteIngredients"></app-ingredient-list>
+				<ion-row *ngFor="let data of recipe.ingredients; let i  = index">
+					<ion-row>
+						<ion-col size="2">
+						  <ion-item>
+							<ion-input value="{{this.data.amount}}"></ion-input>
+						  </ion-item>
+						</ion-col>
+						<ion-col size="2">
+						  <ion-item lines="none" >
+							<ion-select interface="popover" placeholder="{{data.unit}}">
+							  <ion-select-option value="gramms">g</ion-select-option>
+								 <ion-select-option value="stueck">stück</ion-select-option>
+								 <ion-select-option value="milli">milli</ion-select-option>
+							</ion-select>
+						  </ion-item>
+						</ion-col>
+						<ion-col size="5">
+						  <ion-item>
+							<ion-input value="{{data.name}}"></ion-input>
+						  </ion-item>
+						</ion-col>
+						<ion-col size="3">
+						  <ion-item lines="none">
+							<p (click)="deleteItem(data)">a</p>
+						  </ion-item>
+						</ion-col>
+						</ion-row>
 				</ion-row>
 			</ion-grid>
-			<ion-item lines="none">
-				<ion-button (click)="newIngredient()"> + </ion-button>
+			<ion-item>
+				<ion-label>
+					<ion-input
+					type="text"
+					name="inputIngreduebt"
+					[(ngModel)]="inputStep">
+				</ion-input>
+				</ion-label>
 			</ion-item>
+
+			
 
 		   <ion-card-title> Preperation</ion-card-title>
 		   <ion-item>
 			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
 			</ion-item>
-		   <ion-item *ngFor="let item of dummyRecipe.instructions; let i = index">
+		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
 			<ion-label>
 				<p>{{i}}</p>
 				<ion-input value="{{item}}"></ion-input>

@@ -11,33 +11,30 @@
 	<ion-card>
 		<ion-card-header>
 			<ion-card-title>
-				{{this.dummyRecipe.getName()}}
+				{{this.recipe.name}}
 			</ion-card-title>
 			
 			<ion-card-subtitle >
 					<ion-label>
-						<p><ion-icon name="time-outline"></ion-icon> {{this.dummyRecipe.getCookingTime()}} CookingTime
-						</p>
-						<p>	<ion-icon name="timer-outline"></ion-icon> {{this.dummyRecipe.getPreparationTime()}} PreparationTime						</p>
+						<p><ion-icon name="time-outline"></ion-icon> {{this.recipe.time}} Time</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-fab  horizontal="end" vertical="top">
-				<ion-fab-button [routerLink]="['../recipes/editor',this.dummyRecipe.getId()]"(click)="editRecipe()"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
+				<ion-fab-button [routerLink]="['../recipes/editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
 			  </ion-fab>
-			<ion-img src="../../../assets/shapes.svg">
+			<ion-img src=`${{this.recipe.images[1]}}`>
 			</ion-img>
 			<ion-card-title> Ingrediens</ion-card-title>
-			<ion-item *ngFor="let item of dummyRecipe.getIngredients()">
+			<ion-item *ngFor="let item of recipe.ingredients">
 				 <ion-label line="none"> 
-					<h2>{{item.getName()}}</h2>
-					<p> {{item.getAmount()}} {{item.getUnit()}} </p>
+					<h2>{{item.name}}</h2>
+					<p> {{item.amount}} {{item.unit}} </p>
 				 </ion-label>
 			</ion-item>
-			
 		   <ion-card-title> Preperation</ion-card-title>
-		   <ion-item *ngFor="let item of dummyRecipe.getInstructions(); let i = index">
+		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
 			Step {{i}}: {{item}}
 			</ion-item>
 		</ion-card-content>

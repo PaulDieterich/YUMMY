@@ -16,13 +16,13 @@
 <ion-content [fullscreen]="true" class="card-background-page">
 	<ion-grid>
 		<ion-row>
-			<ion-col *ngFor="let item of this.recipes" col-lg-6>
+			<ion-col *ngFor="let item of this.recipes" size="12" size-md>
 				<ion-card [routerLink]="['detail', item.id]" expand="full">
 					<ion-card-header>
 						{{item.name}}
 					</ion-card-header>
 					<ion-card-content>
-						<ion-img src="../../../assets/shapes.svg"></ion-img>
+						<ion-img class="image" [src]="this.item.images[0]"></ion-img>
 					</ion-card-content>
 					{{item.time}}
 				</ion-card>

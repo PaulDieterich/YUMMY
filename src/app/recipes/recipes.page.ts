@@ -33,6 +33,7 @@ export class RecipesPage implements OnInit, OnChanges {
 			console.log('Loading all recipes');
 			this.service.list().subscribe((data: Recipe[]) => {
 				this.recipes = data;
+				console.log(`image array: ${data[0].images}`);
 			});
 		}
 	}
