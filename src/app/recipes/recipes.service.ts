@@ -97,7 +97,7 @@ export class RecipesService {
 							.auth(this.service.user, this.service.password)
 							.body(ingredient)
 							.post('/recipes/{id}/ingredients', recipe.id, ingredient)
-							.subscribe(ignored => {
+							.subscribe(__ => {
 								if (++count === target) {
 									observer.next(recipe);
 									observer.complete();
