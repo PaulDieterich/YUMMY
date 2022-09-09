@@ -58,7 +58,7 @@ export abstract class ApiService<E extends Entity, Attribute> {
 	update(entity: E): Observable<E> {
 		const request = new API<E>(this.http);
 		request.body(entity);
-		return request.put(`${this.basePath}/{id}`, entity.getId());
+		return request.put(`${this.basePath}/{id}`, entity.getId);
 	}
 
 	delete(id: number) {
