@@ -14,12 +14,10 @@ export class EditorPage implements OnInit,OnChanges {
 
 	@Input() inputrecipe: Recipe = new Recipe();
 	@Input() data: Ingredient = new Ingredient();
-	inputStep = '';
-	inputIngredients = new Array<Ingredient>();
-	deleteIngredients: Ingredient;
 	recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
+		recipes.auth('user','user');
 	}
 	ngOnInit() {
 		this.ngOnChanges();
@@ -28,27 +26,24 @@ export class EditorPage implements OnInit,OnChanges {
 		this.id = this.activatedRoute.snapshot.params.id;
 		if(this.id > 0){
 			this.recipes.get(this.id).subscribe(recipe => {
-				this.recipe = recipe;
-				console.log('ngOnInit', this.recipe);
+				this.inputrecipe = recipe;
+				console.log('ngOnInit', this.inputrecipe);
 			});
 		}
 	}
 	newIngredient(){
-		console.log('newIngredient');
-		this.inputIngredients.push(this.data);
 	}
 
 	newStep(){
-		this.recipe.instructions.push(this.inputStep);
-		this.inputStep = '';
-		console.log(`newStep: ${this.inputStep}`);
+		const inputStep = '';
+		//this.recipe.instructions.push(inputStep);
 	}
-	deleteIngredient(name: string){
-		const todelete = this.recipe.ingredients.filter(ingredient => ingredient.name !== name);
+	deleteIngredient(id: number){
+		const todelete = this.inputrecipe.ingredients.splice(id,1);
 		console.log(`delete ${todelete}`);
 	}
 	deleteInstuction(id: number){
-		const instrcutions = this.recipe.instructions;
+		const instrcutions = this.inputrecipe.instructions.splice(id,1);
 	}
 
 	//TODO: camera functions maybe outsource in service ?
@@ -64,15 +59,12 @@ export class EditorPage implements OnInit,OnChanges {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
-		this.recipe.ingredients.push(...this.inputIngredients);
-		console.log(`${this.recipe.name} got updated`);
+		console.log(`${this.inputrecipe.name} got updated`);
 		if(this.id > 0){
-			this.recipes.update(this.recipe).subscribe(recipe =>{
-				this.recipe = recipe;
+			this.recipes.update(this.inputrecipe).subscribe(recipe =>{
 			});
 		}else{
-			this.recipes.create(this.recipe).subscribe(recipe =>{
-				this.recipe = recipe;
+			this.recipes.create(this.inputrecipe).subscribe(recipe =>{
 			});
 		}
 	}
