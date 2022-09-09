@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RecipesPage} from './recipes.page';
+import {DetailPage} from './detail/detail.page';
+import {EditorPage} from './editor/editor.page';
 
 const routes: Routes = [
 	{
@@ -21,8 +23,19 @@ const routes: Routes = [
 	},{
 		path: 'create',
 		loadChildren: () => import('./create/create.module').then(m => m.CreatePageModule)
+	},
+	{
+		path: ':id',
+		component: DetailPage
+	},
+	{
+		path: 'create',
+		component: EditorPage
+	},
+	{
+		path: ':id/edit',
+		component: EditorPage
 	}
-
 ];
 
 @NgModule({

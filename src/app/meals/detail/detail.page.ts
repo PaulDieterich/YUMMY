@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Meal} from '../meal.class';
+import {ActivatedRoute} from '@angular/router';
+import {MealsService} from '../meals.service';
 
 @Component({
 	selector: 'app-detail',
@@ -7,10 +10,15 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DetailPage implements OnInit {
 
-	constructor() {
-	}
+	meal = new Meal();
+
+	constructor(private service: MealsService, private route: ActivatedRoute) { }
 
 	ngOnInit() {
+		this.route.paramMap.subscribe(params => {
+			this.service.get(+params.get('id')).subscribe(data => {
+				this.meal.apply(data);
+			});
+		});
 	}
-
 }

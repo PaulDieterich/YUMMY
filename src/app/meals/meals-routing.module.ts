@@ -1,23 +1,25 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MealsPage} from './meals.page';
+import {DetailPage} from './detail/detail.page';
+import {EditorPage} from './editor/editor.page';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: MealsPage,
+		component: MealsPage
 	},
 	{
 		path: ':id',
-		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
+		component: DetailPage
 	},
 	{
 		path: 'create',
-		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+		component: EditorPage
 	},
 	{
 		path: ':id/edit',
-		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+		component: EditorPage
 	}
 ];
 

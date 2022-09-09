@@ -29,8 +29,6 @@ export class Meal implements Entity {
 		this.name = data.name;
 		this.images.splice(0, this.images.length, ...data.images);
 		this.user = data.user;
-		this.recipes.splice(0, this.recipes.length, ...data.recipes);
-		this.ingredients.splice(0, this.ingredients.length, ...data.ingredients);
 	}
 }
 
