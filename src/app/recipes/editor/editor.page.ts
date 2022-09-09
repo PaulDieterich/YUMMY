@@ -17,6 +17,7 @@ export class EditorPage implements OnInit {
 	recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
+		recipes.auth('user', 'user');
 	}
 
 	ngOnInit() {

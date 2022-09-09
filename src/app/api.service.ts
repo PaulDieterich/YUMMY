@@ -3,20 +3,27 @@ import {Observable} from 'rxjs';
 
 import {API} from './api.class';
 import {Entity} from './entity.class';
-import {Filter} from './list/filter.class';
-import {Sorter} from './list/sorter.class';
-import {Pagination} from './list/pagination.class';
+import {Filter, Pagination, Sorter} from './list/util.class';
 
-export abstract class ApiService<E extends Entity, Attribute> {
+export class ApiService<E extends Entity, Attribute> {
 
-	protected constructor(private http: HttpClient, private readonly basePath: string) { }
+	public user: string;
+	public password: string;
+
+	public constructor(private http: HttpClient, private readonly basePath: string) { }
+
+	auth(user: string, password: string): ApiService<E, Attribute> {
+		this.user = user;
+		this.password = password;
+		return this;
+	}
 
 	list(filters?: Filter<Attribute>[], sorter?: Sorter<Attribute>[], pagination?: Pagination): Observable<E[]> {
 		const request = new API<E[]>(this.http);
 
 		if (filters) {
 			filters.forEach(filter => {
-				request.queryParam(filter.getAttribute() as unknown as string, filter.getFilter() + ':' + filter.getValue());
+				request.queryParam(filter.attribute as unknown as string, filter.filter + ':' + filter.value);
 			});
 		}
 
@@ -27,17 +34,17 @@ export abstract class ApiService<E extends Entity, Attribute> {
 		}
 
 		if (pagination) {
-			if (pagination.getLimit()) {
-				request.queryParam('limit', pagination.getLimit());
+			if (pagination.limit) {
+				request.queryParam('limit', pagination.limit);
 			}
-			if (pagination.getAfterId()) {
-				request.queryParam('afterId', pagination.getAfterId());
+			if (pagination.afterId) {
+				request.queryParam('afterId', pagination.afterId);
 			}
-			if (pagination.getOffset()) {
-				request.queryParam('offset', pagination.getOffset());
+			if (pagination.offset) {
+				request.queryParam('offset', pagination.offset);
 			}
-			if (pagination.getPage()) {
-				request.queryParam('page', pagination.getPage());
+			if (pagination.page) {
+				request.queryParam('page', pagination.page);
 			}
 		}
 
@@ -51,18 +58,21 @@ export abstract class ApiService<E extends Entity, Attribute> {
 
 	create(entity: E): Observable<E> {
 		const request = new API<E>(this.http);
+		request.auth(this.user, this.password);
 		request.body(entity);
 		return request.post(`${this.basePath}`);
 	}
 
 	update(entity: E): Observable<E> {
 		const request = new API<E>(this.http);
+		request.auth(this.user, this.password);
 		request.body(entity);
-		return request.put(`${this.basePath}/{id}`, entity.getId);
+		return request.put(`${this.basePath}/{id}`, entity.getId());
 	}
 
 	delete(id: number) {
 		const request = new API<E>(this.http);
+		request.auth(this.user, this.password);
 		return request.delete(`${this.basePath}/{id}`, id);
 	}
 }

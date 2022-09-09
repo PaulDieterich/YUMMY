@@ -7,23 +7,32 @@ export class Recipe implements Entity {
 	public name: string;
 	public readonly images: Array<string>;
 	public readonly instructions: Array<string>;
-	public readonly ingredients: Array<Ingredient>;
 	public time?: string;
 	public source: string;
 	public readonly tags: Array<string>;
+	public readonly ingredients: Array<Ingredient>;
 
 	constructor() {
 		this.id = -1;
 		this.name = '';
-		this.images = new Array<string>();
-		this.instructions = new Array<string>();
-		this.ingredients = new Array<Ingredient>();
+		this.images = [];
+		this.instructions = [];
 		this.source = '';
 		this.tags = [];
+		this.ingredients = [];
 	}
 
 	getId(): number {
 		return this.id;
+	}
+
+	public apply(recipe: Recipe) {
+		this.id = recipe.id;
+		this.name = recipe.name;
+		this.images.splice(0, this.images.length, ...recipe.images);
+		this.instructions.splice(0, this.instructions.length, ...recipe.instructions);
+		this.source = recipe.source;
+		this.tags.splice(0, this.tags.length, ...recipe.tags);
 	}
 }
 

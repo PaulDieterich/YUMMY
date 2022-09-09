@@ -10,8 +10,8 @@ export class API<E> {
 	private mQueryParams = new HttpParams();
 
 	constructor(private http: HttpClient) {
-		this.mHeaders.set('Content-Type', 'application/json');
-		this.mHeaders.set('Accept', 'application/json');
+		this.mHeaders = this.mHeaders.set('Content-Type', 'application/json');
+		this.mHeaders = this.mHeaders.set('Accept', 'application/json');
 	}
 
 	headers(headers: Map<string, any>): API<E> {
@@ -20,7 +20,7 @@ export class API<E> {
 	}
 
 	header(key: string, value: any): API<E> {
-		this.mHeaders.set(key, value);
+		this.mHeaders = this.mHeaders.set(key, value);
 		return this;
 	}
 

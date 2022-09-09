@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 
 import {Recipe, RecipeAttribute} from './recipe.class';
 import {RecipesService} from './recipes.service';
-import {Filter, FilterType} from '../list/filter.class';
+import {Filter, FilterType} from '../list/util.class';
 
 @Component({
 	selector: 'app-recipes',
