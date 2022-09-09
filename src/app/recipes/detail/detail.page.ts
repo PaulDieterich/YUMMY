@@ -24,8 +24,13 @@ export class DetailPage implements OnInit {
 		});
 	}
 	editRecipe(id: number){
-
 		console.log('edit recipe');
+	}
+	getIngreadntValues(): Array<Ingredient>{
+		return Array.from(this.recipe.ingredients.values());
+	}
+	getInstructionsValues(): Array<string>{
+		return Array.from(this.recipe.instructions.values());
 	}
 }
 

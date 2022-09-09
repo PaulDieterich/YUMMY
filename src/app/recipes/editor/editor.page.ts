@@ -11,15 +11,13 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 })
 export class EditorPage implements OnInit,OnChanges {
 
-
-	@Input() inputrecipe: Recipe = new Recipe();
-	@Input() data: Ingredient = new Ingredient();
+	@Input() recipe: Recipe = new Recipe();
+	ingredient: Ingredient = new Ingredient();
 	inputStep = '';
-	inputIngredients = new Array<Ingredient>();
 	deleteIngredients: Ingredient;
-	recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
+	recipes.auth('user','user');
 	}
 	ngOnInit() {
 		this.ngOnChanges();
@@ -33,22 +31,24 @@ export class EditorPage implements OnInit,OnChanges {
 			});
 		}
 	}
-	newIngredient(){
+	/*
+	newIngredient(newId: number){
 		console.log('newIngredient');
-		this.inputIngredients.push(this.data);
+		this.recipe.ingredients.set(newId, this.ingredient);
 	}
 
-	newStep(){
-		this.recipe.instructions.push(this.inputStep);
-		this.inputStep = '';
+	newStep(newStep: number){
+		this.recipe.instructions.set(newStep,this.inputStep);
 		console.log(`newStep: ${this.inputStep}`);
 	}
-	deleteIngredient(name: string){
-		const todelete = this.recipe.ingredients.filter(ingredient => ingredient.name !== name);
-		console.log(`delete ${todelete}`);
+	*/
+	deleteIngredient(id: number){
+		console.log(`deleteIngredient: ${id}`);
+		this.recipe.ingredients.delete(id);
 	}
 	deleteInstuction(id: number){
-		const instrcutions = this.recipe.instructions;
+		console.log(`deleteInstuction: ${id}`);
+		this.recipe.instructions.delete(id);
 	}
 
 	//TODO: camera functions maybe outsource in service ?
@@ -63,9 +63,16 @@ export class EditorPage implements OnInit,OnChanges {
 		this.recipe.images.push(base64);
 		console.log('Added image', base64);
 	}
+	getIngreadntValues(): Array<Ingredient>{
+		return Array.from(this.recipe.ingredients.values());
+	}
+	getInstructionsValues(): Array<string>{
+		return Array.from(this.recipe.instructions.values());
+	}
 	updateRecipe(){
-		this.recipe.ingredients.push(...this.inputIngredients);
+		//this.recipe.ingredients.push(...this.inputIngredients);
 		console.log(`${this.recipe.name} got updated`);
+		this.recipe.source = 'user';
 		if(this.id > 0){
 			this.recipes.update(this.recipe).subscribe(recipe =>{
 				this.recipe = recipe;

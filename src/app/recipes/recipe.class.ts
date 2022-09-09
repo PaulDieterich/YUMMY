@@ -6,20 +6,20 @@ export class Recipe implements Entity {
 	public id: number;
 	public name: string;
 	public readonly images: Array<string>;
-	public readonly instructions: Array<string>;
+	public instructions: Map<number,string>;
 	public time?: string;
 	public source: string;
 	public readonly tags: Array<string>;
-	public readonly ingredients: Array<Ingredient>;
+	public ingredients: Map<number,Ingredient>;
 
 	constructor() {
 		this.id = -1;
 		this.name = '';
 		this.images = [];
-		this.instructions = [];
+		this.instructions = new Map<number,string>();
 		this.source = '';
 		this.tags = [];
-		this.ingredients = [];
+		this.ingredients = new Map<number,Ingredient>();
 	}
 
 	getId(): number {
@@ -30,7 +30,8 @@ export class Recipe implements Entity {
 		this.id = recipe.id;
 		this.name = recipe.name;
 		this.images.splice(0, this.images.length, ...recipe.images);
-		this.instructions.splice(0, this.instructions.length, ...recipe.instructions);
+		this.instructions.clear();
+		this.ingredients.clear();
 		this.source = recipe.source;
 		this.tags.splice(0, this.tags.length, ...recipe.tags);
 	}

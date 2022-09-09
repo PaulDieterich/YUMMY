@@ -44,7 +44,9 @@ export class RecipesService {
 			});
 
 			new API<Ingredient[]>(this.http).get('/recipes/{id}/ingredients', id).subscribe(data => {
-				recipe.ingredients.splice(0, recipe.ingredients.length, ...data);
+				Array.from(data, (value, key) => { recipe.ingredients.set(key, value); });
+				//recipe.ingredients = new Map<number, Ingredient>(data.map(ingredient => [, ingredient]));
+				//recipe.ingredients.splice(0, recipe.ingredients.length, ...data);
 				if (++count === 2) {
 					observer.next(recipe);
 					observer.complete();
@@ -56,9 +58,10 @@ export class RecipesService {
 	create(recipe: Recipe): Observable<Recipe> {
 		return new Observable<Recipe>(observer => {
 			let count = 0;
-			const target = recipe.ingredients.length + 1;
+			const ingredientArr: Ingredient[] = Array.from(recipe.ingredients.values());
+			const target = recipe.ingredients.size + 1;
 
-			recipe.ingredients.forEach(ingredient => {
+			ingredientArr.forEach(ingredient => {
 				new API<Ingredient>(this.http)
 					.auth(this.service.user, this.service.password)
 					.body(ingredient)
@@ -85,14 +88,15 @@ export class RecipesService {
 	update(recipe: Recipe): Observable<Recipe> {
 		return new Observable<Recipe>(observer => {
 			let count = 0;
-			const target = recipe.ingredients.length + 2;
+			const ingredientArr: Ingredient[] = Array.from(recipe.ingredients.values());
+			const target = recipe.ingredients.size + 2;
 
 			new API<Ingredient[]>(this.http)
 				.auth(this.service.user, this.service.password)
 				.delete('/recipes/{id}/ingredients', recipe.id)
 				.subscribe(_ => {
 					++count;
-					recipe.ingredients.forEach(ingredient => {
+					ingredientArr.forEach(ingredient => {
 						new API<Ingredient>(this.http)
 							.auth(this.service.user, this.service.password)
 							.body(ingredient)

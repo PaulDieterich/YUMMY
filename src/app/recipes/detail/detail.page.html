@@ -1,5 +1,15 @@
 <ion-header>
 	<ion-toolbar>
+		<ion-title slot="start">YUMMY</ion-title>
+        <ion-buttons slot="secondary">
+          <ion-button [routerLink]="['../../editor']"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+        </ion-buttons>
+	
+        <ion-buttons slot="primary">
+          <ion-button >Log In</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+	<ion-toolbar>
 	  <ion-buttons slot="start">
 		<ion-back-button mode="md" defaultHref="tabs/recipes"></ion-back-button>
 	  </ion-buttons>
@@ -13,6 +23,9 @@
 			<ion-card-title>
 				{{this.recipe.name}}
 			</ion-card-title>
+			<ion-fab  horizontal="end" vertical="top">
+				<ion-fab-button [routerLink]="['../editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
+			  </ion-fab>
 			
 			<ion-card-subtitle >
 					<ion-label>
@@ -21,20 +34,17 @@
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
-			<ion-fab  horizontal="end" vertical="top">
-				<ion-fab-button [routerLink]="['../editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
-			  </ion-fab>
 			  <ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>
 			<ion-card-title> Ingrediens</ion-card-title>
-			<ion-item *ngFor="let item of recipe.ingredients">
+			<ion-item *ngFor="let item of getIngreadntValues()">
 				 <ion-label line="none"> 
 					<h2>{{item.name}}</h2>
 					<p> {{item.amount}} {{item.unit}} </p>
 				 </ion-label>
 			</ion-item>
 		   <ion-card-title> Preperation</ion-card-title>
-		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
+		   <ion-item *ngFor="let item of getInstructionsValues(); let i = index">
 			Step {{i}}: {{item}}
 			</ion-item>
 		</ion-card-content>

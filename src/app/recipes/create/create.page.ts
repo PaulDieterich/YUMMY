@@ -33,6 +33,7 @@ export class CreatePage implements OnInit, OnChanges {
 			console.log('ngOnChanges', this.recipe);
 		});
 	}
+	/*
 	newIngredient(){ console.log('newIngredient');
 		this.recipe.ingredients.push(this.inputIngredient);
 
@@ -42,14 +43,6 @@ export class CreatePage implements OnInit, OnChanges {
 		this.recipe.instructions.push(this.inputStep);
 		this.inputStep = '';
 		console.log(`newStep: ${this.inputStep}`);
-	}
-	deleteIngredient(name: string){
-		const todelete = this.recipe.ingredients.filter(ingredient => ingredient.name !== name);
-		console.log(`delete ${todelete}`);
-	}
-	deleteInstuction(id: number){
-		console.log("delete instruction");
-		//const instrcutions = this.recipe.instructions;
 	}
 
 	//TODO: camera functions maybe outsource in service ?
@@ -74,6 +67,7 @@ export class CreatePage implements OnInit, OnChanges {
 		this.deleteIngredients = ingr;
 		console.log(`delete ${ingr.name}`);
 	  }
+	  */
 }
 
 
