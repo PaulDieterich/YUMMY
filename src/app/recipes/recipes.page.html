@@ -26,12 +26,15 @@
 			<ion-col *ngFor="let item of this.recipes" size="12" size-md>
 				<ion-card [routerLink]="['detail', item.id]" expand="full">
 					<ion-card-header>
-						{{item.name}}
+						<ion-item>
+							{{item.name}}
+							{{item.time}}
+						</ion-item> 
 					</ion-card-header>
 					<ion-card-content>
 						<ion-img class="image" [src]="this.item.images[0]"></ion-img>
+						
 					</ion-card-content>
-					{{item.time}}
 				</ion-card>
 			</ion-col>
 		</ion-row>
