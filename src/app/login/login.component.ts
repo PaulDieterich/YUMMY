@@ -23,9 +23,10 @@ export class LoginComponent implements OnInit {
   }
   logIn(){
     if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
-      console.log(this.user);
+      console.log(this.username);
       this.userService.list().subscribe(data => {
         data.forEach(user => {
+
           if(this.username === user.name){
             this.userService.get(user.id).subscribe(u => {
               if(this.password === u.password){
@@ -43,6 +44,6 @@ export class LoginComponent implements OnInit {
     }else{
       console.log('Please enter a username and password');
     }
-    localStorage.setItem('loggedIn',this.user.getId().toString());
+    localStorage.setItem('user',this.user.name);
   }
 }

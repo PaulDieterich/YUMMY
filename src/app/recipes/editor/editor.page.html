@@ -4,9 +4,6 @@
         <ion-buttons slot="secondary">
 			<ion-button (click)="updateRecipe()"color="dark"><ion-icon name="save-outline"></ion-icon></ion-button>
         </ion-buttons>
-		<ion-buttons slot="primary">
-			<ion-button id="open-modal" expand="block">Log In</ion-button>
-		  </ion-buttons>
     </ion-toolbar>
 			<ion-toolbar>
 	  <ion-buttons slot="start">
@@ -37,6 +34,7 @@
 			<ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>
 			<ion-card-title> Zutaten</ion-card-title>
+			<ion-button type="submit" value="addStep"(click)="newIngredient()" class="submit">mehr Zusaten</ion-button>
 			 <ion-item>
 
 

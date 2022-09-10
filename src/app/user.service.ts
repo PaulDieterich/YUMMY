@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { API } from './api.class';
+import { Filter, Pagination, Sorter } from './list/util.class';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +26,13 @@ export class UserService {
 		return this;
 	}
 
-
-  list(): Observable<User[]> {
-		return this.service.list();
+  list(filters?: Filter<UserAttribute>[], sorter?: Sorter<UserAttribute>[], pagination?: Pagination): Observable<User[]> {
+		console.log('list');
+    return this.service.auth(this.service.user, this.service.password).list(filters, sorter, pagination);
 	}
 
   get(id: number): Observable<User> {
+    console.log('get');
    return new Observable<User>(observer => {
       const user = new User();
       let count = 0;
@@ -59,7 +62,6 @@ export class UserService {
       const  target = user.recipes.length + 1;
       this.service.auth(this.service.user, this.service.password)
       .create(user)
-     
       .subscribe(data => {
         user.recipes.forEach(recipe => {
           new API<Recipe>(this.http)

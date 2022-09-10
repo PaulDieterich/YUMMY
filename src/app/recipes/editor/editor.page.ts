@@ -60,12 +60,17 @@ export class EditorPage implements OnInit,OnChanges {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
-		this.recipe.source = 'user';
+		this.recipe.source = localStorage.getItem('user') ? localStorage.getItem('user') : 'unbekannt';
 		console.log(`${this.recipe.name} got updated`);
+		this.recipe.ingredients.forEach(element => {
+			if(element.amount < 1){
+				element.amount = 1;
+			}
+		});
 		if(this.id > 0){
 			this.recipes.update(this.recipe).subscribe(recipe =>{
 				this.recipe = recipe;
-			});
+		});
 		}else{
 			this.recipes.create(this.recipe).subscribe(recipe =>{
 				this.recipe = recipe;
