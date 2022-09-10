@@ -1,8 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RecipesPage} from './recipes.page';
-import {DetailPage} from './detail/detail.page';
-import {EditorPage} from './editor/editor.page';
 
 const routes: Routes = [
 	{
@@ -30,15 +28,15 @@ const routes: Routes = [
 	},
 	{
 		path: ':id',
-		component: DetailPage
+		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
 	},
 	{
 		path: 'create',
-		component: EditorPage
+		loadChildren: () => import('./create/create.module').then(m => m.CreatePageModule)
 	},
 	{
 		path: ':id/edit',
-		component: EditorPage
+		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
 	}
 ];
 

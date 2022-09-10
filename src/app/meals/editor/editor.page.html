@@ -1,9 +1,48 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>editor</ion-title>
+		<ion-buttons slot="start">
+			<ion-back-button mode="md" defaultHref="/meals"></ion-back-button>
+			<ion-title slot="start">YUMMY</ion-title>
+		</ion-buttons>
+
+		<ion-buttons slot="end">
+			<ion-button mode="md" (click)="save()">Save</ion-button>
+		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+	<ion-card>
+		<ion-card-header>
+			<ion-card-title>{{meal.name || "Meal"}}</ion-card-title>
+			<ion-card-subtitle>{{meal.user}}</ion-card-subtitle>
+		</ion-card-header>
+		<ion-card-content>
+			<ion-fab horizontal="end" vertical="top">
+				<ion-fab-button (click)="takePicture()" color="light">
+					<ion-icon name="camera"></ion-icon>
+				</ion-fab-button>
+			</ion-fab>
+			<ion-card-title>Recipes</ion-card-title>
+			<ion-grid>
+				<ion-item lines="none">
+					<ion-button (click)="addRecipe()">
+						<ion-icon name="add"></ion-icon>
+					</ion-button>
+				</ion-item>
+				<ion-row *ngFor="let recipe of meal.recipes">
+					<ion-col size="10">
+						<ion-item>
+							<ion-label>{{recipe.name}}</ion-label>
+						</ion-item>
+					</ion-col>
+					<ion-col size="2">
+						<ion-button (click)="removeRecipe(recipe)">
+							<ion-icon name="remove"></ion-icon>
+						</ion-button>
+					</ion-col>
+				</ion-row>
+			</ion-grid>
+		</ion-card-content>
+	</ion-card>
 </ion-content>
