@@ -13,18 +13,29 @@ export class UserService {
 
 
   private http: HttpClient;
-	private service: ApiService<User, UserAttribute>;
+  private service: ApiService<User, UserAttribute>;
 
   constructor(http: HttpClient) {
     this.http = http;
     this.service = new ApiService<User, UserAttribute>(http, '/users');
   }
+  auth(user: string, password: string): UserService {
+		this.service.auth(user, password);
+		return this;
+	}
+
+
+  list(): Observable<User[]> {
+		return this.service.list();
+	}
 
   get(id: number): Observable<User> {
    return new Observable<User>(observer => {
       const user = new User();
       let count = 0;
-      this.service.get(id).subscribe(data => {
+      this.service.get(id)
+     // .auth(this.service.user, this.service.password)
+      .subscribe(data => {
         user.apply(data);
         if(++count === 2) {
           observer.next(user);
@@ -46,7 +57,9 @@ export class UserService {
     return new Observable<User>(observer => {
       let count = 0;
       const  target = user.recipes.length + 1;
-      this.service.create(user).subscribe(data => {
+      this.service.create(user)
+      //.auth(this.service.user, this.service.password)
+      .subscribe(data => {
         user.recipes.forEach(recipe => {
           new API<Recipe>(this.http)
           .auth(this.service.user, this.service.password)

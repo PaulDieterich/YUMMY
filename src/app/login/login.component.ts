@@ -1,28 +1,48 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule, OnInit, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-
-
+import { UserService } from './../user.service';
+import { Component,Input, OnInit } from '@angular/core';
+import { User } from '../user.class';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-
 export class LoginComponent implements OnInit {
-
-
-  @Input() userName: string;
+  @Input() username: string;
   @Input() password: string;
-  constructor() { }
+  user: User = new User();
+  loggedIn = false;
+  constructor(private userService: UserService) {
+    userService.auth('user','user');
+  }
 
   ngOnInit() {}
 
-  login() {
-    
-    throw new Error('Method not implemented.');
+  register(){
+    console.log('register');
   }
-
+  logIn(){
+    if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
+      console.log(this.user);
+      this.userService.list().subscribe(data => {
+        data.forEach(user => {
+          if(this.username === user.name){
+            this.userService.get(user.id).subscribe(u => {
+              if(this.password === u.password){
+                this.loggedIn = true;
+              }
+            });
+          }else{
+            this.userService.create(this.user).subscribe(u => {
+              this.user = u;
+            });
+          }
+        });
+      });
+      console.log(this.loggedIn);
+    }else{
+      console.log('Please enter a username and password');
+    }
+    localStorage.setItem('loggedIn',this.user.getId().toString());
+  }
 }
