@@ -1,7 +1,5 @@
   <ion-content>
-    
       <ion-item >
-      
         <ion-input [(ngModel)]="this.username" placeholder="NAME"></ion-input>
       </ion-item>
       <ion-item >
@@ -10,5 +8,8 @@
       <ion-item  lines="none">
         <ion-button  color="medium"expand="block" fill="outline" (click)="logIn()"> login</ion-button>
         <ion-button  color="medium"expand="block" fill="outline" (click)="register()"> Registrieren</ion-button>
+      </ion-item>
+      <ion-item >
+        <ion-input disabled > {{this.error}}</ion-input>
       </ion-item>
   </ion-content>

@@ -10,6 +10,7 @@ import { User } from '../common/user.class';
 export class LoginComponent implements OnInit {
   @Input() username: string;
   @Input() password: string;
+  error: string;
   user: User = new User();
   loggedIn = false;
   constructor(private userService: UserService) {
@@ -20,19 +21,11 @@ export class LoginComponent implements OnInit {
 
   register(){
     console.log('register');
-  }
-  logIn(){
     if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
-      console.log(this.username);
       this.userService.list().subscribe(data => {
         data.forEach(user => {
-
           if(this.username === user.name){
-            this.userService.get(user.id).subscribe(u => {
-              if(this.password === u.password){
-                this.loggedIn = true;
-              }
-            });
+            this.error = 'Username already exists';
           }else{
             this.userService.create(this.user).subscribe(u => {
               this.user = u;
@@ -40,10 +33,26 @@ export class LoginComponent implements OnInit {
           }
         });
       });
-      console.log(this.loggedIn);
-    }else{
-      console.log('Please enter a username and password');
     }
-    localStorage.setItem('user',this.user.name);
+  }
+  logIn(){
+    if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
+      console.log(this.username);
+      this.userService.list().subscribe(data => {
+        data.forEach(user => {
+          if(this.username === user.name){
+            this.userService.get(user.id).subscribe(u => {
+              if(this.password === u.password){
+                this.loggedIn = true;
+                localStorage.setItem('user',this.user.name);
+                console.log(this.loggedIn);
+              }
+            });
+          }
+        });
+      });
+    }else{
+      this.error = 'Please enter a username and password';
+    }
   }
 }

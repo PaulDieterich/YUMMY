@@ -36,8 +36,7 @@ export class UserService {
    return new Observable<User>(observer => {
       const user = new User();
       let count = 0;
-      this.service
-      .auth(this.service.user, this.service.password).get(id)
+      this.service.auth(this.service.user, this.service.password).get(id)
       .subscribe(data => {
         user.apply(data);
         if(++count === 2) {
