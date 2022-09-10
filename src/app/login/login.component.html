@@ -1,15 +1,14 @@
   <ion-content>
     
-      <ion-item lines="none">
-        <ion-label  position="floating">Name</ion-label>
-        <ion-input [(ngModel)]="this.username" placeholder="name"></ion-input>
+      <ion-item >
+      
+        <ion-input [(ngModel)]="this.username" placeholder="NAME"></ion-input>
       </ion-item>
-      <ion-item lines="none">
-        <ion-label position="floating">Passwort</ion-label>
-        <ion-input type="password" [(ngModel)]="this.password" placeholder="passwort" ></ion-input>
+      <ion-item >
+        <ion-input type="password" [(ngModel)]="this.password" placeholder="PASSWORD" ></ion-input>
       </ion-item>
-      <ion-item lines="none">
-        <ion-button  (click)="logIn()"> login</ion-button>
-        <ion-button  (click)="register()"> Registrieren</ion-button>
+      <ion-item  lines="none">
+        <ion-button  color="medium"expand="block" fill="outline" (click)="logIn()"> login</ion-button>
+        <ion-button  color="medium"expand="block" fill="outline" (click)="register()"> Registrieren</ion-button>
       </ion-item>
   </ion-content>

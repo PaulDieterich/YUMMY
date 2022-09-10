@@ -1,0 +1,29 @@
+
+ion-input{
+    position: absolute;
+
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+   
+    margin:auto;
+    letter-spacing: 2px;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+ion-label{
+ text-align: center;
+ justify-self: center;   
+ transition: all 1s ease-in-out
+}
+ion-button{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 50%;
+    
+
+    font-weight: 500;
+   
+}
