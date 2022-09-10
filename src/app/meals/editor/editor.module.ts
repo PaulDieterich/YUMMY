@@ -1,18 +1,20 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
-import {EditorPage} from './editor.page';
+import { EditorPageRoutingModule } from './editor-routing.module';
+
+import { EditorPage } from './editor.page';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		IonicModule
-	],
-	declarations: [EditorPage]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    EditorPageRoutingModule
+  ],
+  declarations: [EditorPage]
 })
-export class EditorPageModule {
-}
+export class EditorPageModule {}

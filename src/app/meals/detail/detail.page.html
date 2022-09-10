@@ -20,17 +20,16 @@
 			<ion-img [src]="meal.images[0]"></ion-img>
 			<ion-card-title>Recipes</ion-card-title>
 			<ion-list>
-<!--				<ion-item *ngFor="let recipe of meal.recipes" [routerLink]="['/recipes', recipe.id]">-->
-<!--					<ion-label>{{recipe.name}}</ion-label>-->
-<!--					<ion-img [src]="recipe.images[0]"></ion-img>-->
-<!--				</ion-item>-->
+				<ion-item *ngFor="let recipe of meal.recipes" [routerLink]="['/recipes', recipe.id]">
+					<ion-label>{{recipe.name}}</ion-label>
+				</ion-item>
 			</ion-list>
 			<ion-card-title>Ingredients</ion-card-title>
 			<ion-list>
-<!--				<ion-item *ngFor="let ingredient of meal.ingredients">-->
-<!--					<ion-label>{{ingredient.name}}</ion-label>-->
-<!--					<p>{{ingredient.amount}} {{ingredient.unit}}</p>-->
-<!--				</ion-item>-->
+				<ion-item *ngFor="let ingredient of meal.ingredients">
+					<ion-label>{{ingredient.name}}</ion-label>
+					<p>{{ingredient.amount}} {{ingredient.unit}}</p>
+				</ion-item>
 			</ion-list>
 		</ion-card-content>
 	</ion-card>

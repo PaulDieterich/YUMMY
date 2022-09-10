@@ -23,7 +23,7 @@ export class EditorPage implements OnInit {
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
 			this.service.get(+params.get('id')).subscribe(data => {
-				this.meal.apply(data);
+				this.meal = data;
 			});
 		});
 	}
@@ -41,7 +41,9 @@ export class EditorPage implements OnInit {
 
 	addRecipe()	{
 		// Show recipe selection dialog
-		this.meal.recipes.push(new Recipe());
+		const recipe = new Recipe();
+		recipe.name = `New recipe ${this.meal.recipes.length + 1}`;
+		this.meal.recipes.push(recipe);
 	}
 
 	removeRecipe(recipe: Recipe) {
