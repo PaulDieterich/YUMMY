@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { API } from './api.class';
-import { Filter, Pagination, Sorter } from './list/util.class';
+import { Filter, Pagination, Sorter } from './list.class';
 
 
 @Injectable({
@@ -62,10 +62,6 @@ export class UserService {
       const  target = user.recipes.length + 1;
       this.service.auth(this.service.user, this.service.password)
       .create(user)
-<<<<<<< HEAD:src/app/user.service.ts
-=======
-
->>>>>>> refs/remotes/origin/master:src/app/common/user.service.ts
       .subscribe(data => {
         user.recipes.forEach(recipe => {
           new API<Recipe>(this.http)
