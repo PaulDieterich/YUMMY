@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 
-import {Filter, FilterType} from '../list/util.class';
+import {Filter, FilterType} from '../common/list.class';
 import {Meal, MealAttribute} from './meal.class';
 
 import {MealsService} from './meals.service';

@@ -1,4 +1,4 @@
-import {Filter, FilterType, Pagination, SortDirection, Sorter} from './util.class';
+import {Filter, FilterType, Pagination, SortDirection, Sorter} from './list.class';
 import {RecipeAttribute} from '../recipes/recipe.class';
 
 describe('Filter', () => {

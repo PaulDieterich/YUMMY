@@ -1,5 +1,5 @@
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
-import { User } from './user.class';
+import { User } from './common/user.class';
 
 @Component({
 	selector: 'app-root',
