@@ -1,20 +1,20 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 
-import {DetailPage} from './detail.page';
-import {RouterModule} from '@angular/router';
+import { DetailPageRoutingModule } from './detail-routing.module';
+
+import { DetailPage } from './detail.page';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		FormsModule,
-		IonicModule,
-		RouterModule
-	],
-	declarations: [DetailPage]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    DetailPageRoutingModule
+  ],
+  declarations: [DetailPage]
 })
-export class DetailPageModule {
-}
+export class DetailPageModule {}
