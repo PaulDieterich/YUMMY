@@ -1,4 +1,4 @@
-import {Entity} from '../entity.class';
+import {Entity} from '../common/entity.class';
 import {Ingredient} from './ingredient.class';
 
 export class Recipe implements Entity {

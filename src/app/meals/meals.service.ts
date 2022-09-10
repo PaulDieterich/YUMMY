@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
-import {ApiService} from '../api.service';
+import {ApiService} from '../common/api.service';
 import {HttpClient} from '@angular/common/http';
 import {Meal, MealAttribute} from './meal.class';
-import {Filter, Sorter, Pagination} from '../list/util.class';
+import {Filter, Sorter, Pagination} from '../common/list.class';
 import {Observable} from 'rxjs';
-import {API} from '../api.class';
+import {API} from '../common/api.class';
 import {Recipe} from '../recipes/recipe.class';
 import {Ingredient} from '../recipes/ingredient.class';
 

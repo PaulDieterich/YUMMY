@@ -1,4 +1,4 @@
-import { Recipe } from './recipes/recipe.class';
+import { Recipe } from '../recipes/recipe.class';
 import {Entity} from './entity.class';
 
 export class User implements Entity {

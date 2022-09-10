@@ -1,6 +1,6 @@
 import {Recipe} from '../recipes/recipe.class';
 import {Ingredient} from '../recipes/ingredient.class';
-import {Entity} from '../entity.class';
+import {Entity} from '../common/entity.class';
 
 export class Meal implements Entity {
 

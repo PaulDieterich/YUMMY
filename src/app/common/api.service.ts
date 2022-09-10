@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 
 import {API} from './api.class';
 import {Entity} from './entity.class';
-import {Filter, Pagination, Sorter} from './list/util.class';
+import {Filter, Pagination, Sorter} from './list.class';
 
 export class ApiService<E extends Entity, Attribute> {
 

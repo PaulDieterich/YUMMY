@@ -1,4 +1,4 @@
-import { Recipe } from './recipes/recipe.class';
+import { Recipe } from '../recipes/recipe.class';
 import { User, UserAttribute } from './user.class';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -62,6 +62,10 @@ export class UserService {
       const  target = user.recipes.length + 1;
       this.service.auth(this.service.user, this.service.password)
       .create(user)
+<<<<<<< HEAD:src/app/user.service.ts
+=======
+
+>>>>>>> refs/remotes/origin/master:src/app/common/user.service.ts
       .subscribe(data => {
         user.recipes.forEach(recipe => {
           new API<Recipe>(this.http)
