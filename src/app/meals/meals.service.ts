@@ -72,11 +72,10 @@ export class MealsService {
 			let count = 0;
 			const target = meal.recipes.length + meal.ingredients.length + 1;
 
-			meal.recipes.forEach(recipe => {
+			meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
 				new API<Recipe>(this.http)
 					.auth(this.service.user, this.service.password)
-					.body(recipe)
-					.post('/meals/{id}/recipes', meal.id, recipe)
+					.post('/meals/{mealId}/recipes/{recipeId}', meal.id, recipe.id)
 					.subscribe(_ => {
 						if (++count === target) {
 							observer.next(meal);
@@ -119,11 +118,10 @@ export class MealsService {
 				.delete('/meals/{id}/recipes', meal.id)
 				.subscribe(_ => {
 					++count;
-					meal.recipes.forEach(recipe => {
+					meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
 						new API<Recipe>(this.http)
 							.auth(this.service.user, this.service.password)
-							.body(recipe)
-							.post('/meals/{id}/recipes', meal.id)
+							.post('/meals/{mealId}/recipes/{recipeId}', meal.id, recipe.id)
 							.subscribe(__ => {
 								if (++count === target) {
 									observer.next(meal);

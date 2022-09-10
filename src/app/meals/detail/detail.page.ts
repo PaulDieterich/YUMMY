@@ -17,7 +17,8 @@ export class DetailPage implements OnInit {
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
 			this.service.get(+params.get('id')).subscribe(data => {
-				this.meal.apply(data);
+				console.log('Meal', data);
+				this.meal = data;
 			});
 		});
 	}
