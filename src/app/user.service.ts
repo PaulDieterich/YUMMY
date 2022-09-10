@@ -33,8 +33,8 @@ export class UserService {
    return new Observable<User>(observer => {
       const user = new User();
       let count = 0;
-      this.service.get(id)
-     // .auth(this.service.user, this.service.password)
+      this.service
+      .auth(this.service.user, this.service.password).get(id)
       .subscribe(data => {
         user.apply(data);
         if(++count === 2) {
@@ -57,8 +57,9 @@ export class UserService {
     return new Observable<User>(observer => {
       let count = 0;
       const  target = user.recipes.length + 1;
-      this.service.create(user)
-      //.auth(this.service.user, this.service.password)
+      this.service.auth(this.service.user, this.service.password)
+      .create(user)
+     
       .subscribe(data => {
         user.recipes.forEach(recipe => {
           new API<Recipe>(this.http)

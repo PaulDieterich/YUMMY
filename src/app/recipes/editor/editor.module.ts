@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {EditorPageRoutingModule} from './editor-routing.module';
 import {EditorPage} from './editor.page';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
+import { LoginComponent } from 'src/app/login/login.component';
 
 @NgModule({
 	imports: [
@@ -15,8 +16,7 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
 		IonicModule,
 		EditorPageRoutingModule,
 	],
-	declarations: [EditorPage,
-		IngredientListComponent]
+	declarations: [EditorPage]
 })
 export class EditorPageModule {
 }

@@ -9,18 +9,16 @@ import {RecipesPage} from './recipes.page';
 
 import {RecipesPageRoutingModule} from './recipes-routing.module';
 import { LoginComponent } from '../login/login.component';
-
 @NgModule({
 	imports: [
 		IonicModule,
 		CommonModule,
 		FormsModule,
 		RecipesPageRoutingModule,
-		MealsPageRoutingModule
+		MealsPageRoutingModule,
 	],
 	declarations: [
-		RecipesPage,
-		LoginComponent
+		RecipesPage, LoginComponent
 	]
 })
 export class RecipesPageModule {
