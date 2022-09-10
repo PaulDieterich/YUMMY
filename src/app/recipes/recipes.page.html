@@ -2,12 +2,16 @@
 	<ion-toolbar>
 		<ion-title slot="start">YUMMY</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button [routerLink]="['editor']"><ion-icon slot="icon-only" name="add-outline"></ion-icon></ion-button>
+          <ion-button [routerLink]="['editor']">
+			<ion-icon slot="icon-only" name="add-outline">
+			</ion-icon>
+		</ion-button>
         </ion-buttons>
 	
         <ion-buttons slot="primary">
-          <ion-button>Log In</ion-button>
+          <ion-button id="open-modal" expand="block">Log In</ion-button>
         </ion-buttons>
+		
     </ion-toolbar>
 	<ion-toolbar>
 		<ion-searchbar
@@ -20,13 +24,27 @@
 	</ion-toolbar>
 </ion-header>
 
+<ion-modal #modal trigger="open-modal">
+	<ng-template>
+		<ion-content>
+		  <ion-toolbar>
+			<ion-buttons slot="start">
+			  <ion-button color="dark" (click)="modal.dismiss()">Close</ion-button>
+				
+			</ion-buttons>
+		  </ion-toolbar>
+		  <app-login></app-login>
+		</ion-content>
+	</ng-template>
+</ion-modal>
 <ion-content [fullscreen]="true" class="card-background-page">
+	
 	<ion-grid>
 		<ion-row>
 			<ion-col *ngFor="let item of this.recipes" size="12" size-md>
 				<ion-card [routerLink]="['detail', item.id]" expand="full">
 					<ion-card-header>
-						<ion-item>
+						<ion-item lines="none">
 							{{item.name}}
 							{{item.time}}
 						</ion-item> 

@@ -22,9 +22,6 @@ const routes: Routes = [
 	{
 		path: 'editor',
 		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
-	},{
-		path: 'create',
-		loadChildren: () => import('./create/create.module').then(m => m.CreatePageModule)
 	},
 	{
 		path: ':id',

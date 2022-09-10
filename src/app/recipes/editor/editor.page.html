@@ -25,7 +25,7 @@
 			<ion-card-subtitle >
 					<ion-label>
 						<p>
-							<ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time						</p>
+							<ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
@@ -77,7 +77,7 @@
 
 		   <ion-card-title> Preperation</ion-card-title>
 		   <ion-item lines="none">
-			<ion-button type="submit" value="addStep"(click)="newStep(recipe.instructions.length)" class="submit">add Step</ion-button>
+			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
 			</ion-item>
 		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
 			<ion-label>
