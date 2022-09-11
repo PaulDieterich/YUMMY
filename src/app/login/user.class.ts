@@ -1,5 +1,5 @@
 import { Recipe } from '../recipes/recipe.class';
-import {Entity} from './entity.class';
+import {Entity} from '../common/entity.class';
 
 export class User implements Entity {
 
