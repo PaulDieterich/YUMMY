@@ -11,21 +11,29 @@ import {Camera, CameraResultType, CameraSource} from '@capacitor/camera';
 })
 export class EditorPage implements OnInit,OnChanges {
 
-
-	@Input() data: Ingredient = new Ingredient();
-	@Input()recipe: Recipe = new Recipe();
+	steps: string[] = [];
+	data: Ingredient = new Ingredient();
+	recipe: Recipe = new Recipe();
 	id: number;
 	constructor(private recipes: RecipesService,private activatedRoute: ActivatedRoute) {
 		recipes.auth('user','user');
 	}
 	ngOnInit() {
 		this.ngOnChanges();
+		/*this.id = this.activatedRoute.snapshot.params.id;
+		if(this.id > 0){
+			this.recipes.get(this.id).subscribe(recipe => {
+				this.recipe = recipe;
+				console.log('ngOnInit', this.recipe);
+			});
+		}*/
 	}
 	ngOnChanges() {
 		this.id = this.activatedRoute.snapshot.params.id;
 		if(this.id > 0){
 			this.recipes.get(this.id).subscribe(recipe => {
 				this.recipe = recipe;
+				this.steps = this.recipe.instructions;
 				console.log('ngOnInit', this.recipe);
 			});
 		}
@@ -46,7 +54,9 @@ export class EditorPage implements OnInit,OnChanges {
 	deleteInstuction(id: number){
 		const instrcutions = this.recipe.instructions.splice(id,1);
 	}
-
+	index(): number[]{
+		return Array.from(Array(this.steps.length).keys());
+	}
 	//TODO: camera functions maybe outsource in service ?
 	async takePicture(){
 		const capturedPhoto = await Camera.getPhoto({

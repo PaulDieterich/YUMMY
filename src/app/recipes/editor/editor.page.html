@@ -79,11 +79,11 @@
 		   <ion-item lines="none">
 			<ion-button type="submit" value="addStep"(click)="newStep()" class="submit">add Step</ion-button>
 			</ion-item>
-		   <ion-item *ngFor="let item of recipe.instructions; let i = index">
-			<ion-label>
-				<p>{{i+1}}</p>
-				<ion-input [(ngModel)]="recipe.instructions[i]" value="{{item}}"></ion-input>
-			 </ion-label>
+		   <ion-item *ngFor="let i of this.index()">
+			<ion-item>
+
+				<ion-input [(ngModel)]="this.recipe.instructions[i]"></ion-input>
+			 </ion-item>
 					<ion-button  (click)="deleteInstuction(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>
 			</ion-item>
 		</ion-card-content>

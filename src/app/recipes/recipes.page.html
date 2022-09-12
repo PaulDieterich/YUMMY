@@ -41,12 +41,11 @@
 	
 	<ion-grid>
 		<ion-row>
-			<ion-col *ngFor="let item of this.recipes" size="12" size-md>
-				<ion-card [routerLink]="[item.id]" expand="full">
+			<ion-col *ngFor="let item of this.recipes" size="12" size-md="4">
+				<ion-card [routerLink]="[item.id]" expand="full" size="6" size="md">
 					<ion-card-header>
 						<ion-item lines="none">
 							{{item.name}}
-							{{item.time}}
 						</ion-item> 
 					</ion-card-header>
 					<ion-card-content>
