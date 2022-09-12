@@ -14,6 +14,6 @@ import { LoginComponent } from './login.component';
     NgModule,
     IonicModule
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
 })
 export class LoginComponentModule {}

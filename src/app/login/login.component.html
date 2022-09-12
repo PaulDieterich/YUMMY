@@ -6,8 +6,8 @@
         <ion-input type="password" [(ngModel)]="this.user.password" placeholder="PASSWORD" required></ion-input>
       </ion-item>
       <ion-item  lines="none">
-        <ion-button  color="medium" expand="block" fill="outline" (click)="logIn()"> login</ion-button>
-        <ion-button  color="medium" expand="block" fill="outline" (click)="register()"> Registrieren</ion-button>
+        <ion-button  color="medium" expand="block" fill="outline"  (click)="logIn()"> login</ion-button>
+        <ion-button  color="medium" expand="block" fill="outline"  (click)="register()"> Registrieren</ion-button>
       </ion-item>
       <ion-item >
         <ion-input disabled> {{this.error}}</ion-input>
