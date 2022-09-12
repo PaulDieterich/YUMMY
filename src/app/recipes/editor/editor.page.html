@@ -2,7 +2,10 @@
 	<ion-toolbar>
 		<ion-title slot="start">YUMMY</ion-title>
         <ion-buttons slot="secondary">
-			<ion-button (click)="updateRecipe()"color="dark"><ion-icon name="save-outline"></ion-icon></ion-button>
+			<ion-button (click)="updateRecipe()"color="dark"[routerLink]="['/recipes']"><ion-icon name="save-outline"></ion-icon></ion-button>
+        </ion-buttons>
+		<ion-buttons slot="secondary">
+			<ion-button (click)="deleteRecipe()"color="dark" [routerLink]="['/recipes']"><ion-icon name="trash-bin-outline"></ion-icon></ion-button>
         </ion-buttons>
     </ion-toolbar>
 			<ion-toolbar>
@@ -21,8 +24,7 @@
 
 			<ion-card-subtitle >
 					<ion-label>
-						<p>
-							<ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time</p>
+						<p><ion-icon name="timer-outline"></ion-icon> {{this.recipe.time}} Time</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>

@@ -60,7 +60,8 @@ export class EditorPage implements OnInit,OnChanges {
 		console.log('Added image', base64);
 	}
 	updateRecipe(){
-		this.recipe.source = localStorage.getItem('user') ? localStorage.getItem('user') : 'unbekannt';
+		const u = JSON.parse(localStorage.getItem('user'));
+		this.recipe.source = u.username;
 		console.log(`${this.recipe.name} got updated`);
 		this.recipe.ingredients.forEach(element => {
 			if(element.amount < 1){
@@ -76,5 +77,10 @@ export class EditorPage implements OnInit,OnChanges {
 				this.recipe = recipe;
 			});
 		}
+	}
+	deleteRecipe(){
+		this.recipes.delete(this.id).subscribe(_ =>{
+				console.log('deleted');
+		});
 	}
 }
