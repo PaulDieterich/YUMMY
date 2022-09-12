@@ -10,9 +10,9 @@ import {Filter, FilterType} from '../common/list.class';
 	styleUrls: ['recipes.page.scss']
 })
 export class RecipesPage implements OnInit, OnChanges {
-	public mSearch: string;
+	mSearch: string;
 	loggedIn = false;
-	public recipes = new Array<Recipe>();
+	recipes = new Array<Recipe>();
 	newId: number;
 	isModalOpen = false;
 	constructor(private service: RecipesService) { }
@@ -50,5 +50,26 @@ export class RecipesPage implements OnInit, OnChanges {
 			this.loggedIn = false;
 			localStorage.removeItem('user');
 		}
+	}
+
+	recipesAsTable() {
+		let num = 1;
+		for (const size of [540, 720, 960]) {
+			if (window.innerWidth > size) {
+				num++;
+			}
+		}
+
+		const table = new Array<Array<Recipe>>();
+		let row = new Array<Recipe>();
+		for (const recipe of this.recipes) {
+			row.push(recipe);
+			if (row.length === num) {
+				table.push(row);
+				row = new Array<Recipe>();
+			}
+		}
+		table.push(row);
+		return table;
 	}
 }

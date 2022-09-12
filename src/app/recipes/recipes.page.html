@@ -7,11 +7,11 @@
 			</ion-icon>
 		</ion-button>
         </ion-buttons>
-	
+
         <ion-buttons slot="primary">
 		  <ion-button id="open-modal" expand="block" (click)="setOpen(true)">{{ this.loggedIn ? 'Log Out' : 'Log In'}}</ion-button>
         </ion-buttons>
-		
+
     </ion-toolbar>
 	<ion-toolbar>
 		<ion-searchbar
@@ -20,7 +20,7 @@
 			show-cancel-button="focus"
 			[(ngModel)]="mSearch"
 			(ionChange)="ngOnChanges()">
-		</ion-searchbar>	
+		</ion-searchbar>
 	</ion-toolbar>
 </ion-header>
 
@@ -30,7 +30,7 @@
 		  <ion-toolbar>
 			<ion-buttons slot="start">
 			  <ion-button color="dark" (click)="modal.dismiss()">Close</ion-button>
-				
+
 			</ion-buttons>
 		  </ion-toolbar>
 		  <app-login (logging) ="input($event)" ></app-login>
@@ -38,20 +38,20 @@
 	</ng-template>
 </ion-modal>
 <ion-content [fullscreen]="true" class="card-background-page">
-	
+
 	<ion-grid>
-		<ion-row>
-			<ion-col *ngFor="let item of this.recipes" size="12" size-md>
-				<ion-card [routerLink]="[item.id]" expand="full">
+		<ion-row *ngFor="let row of this.recipesAsTable()">
+			<ion-col *ngFor="let cell of row" size="12" size-sm="6" size-md="4" size-lg="3">
+				<ion-card [routerLink]="[cell.id]">
 					<ion-card-header>
 						<ion-item lines="none">
-							{{item.name}}
-							{{item.time}}
-						</ion-item> 
+							{{cell.name}}
+							{{cell.time}}
+						</ion-item>
 					</ion-card-header>
 					<ion-card-content>
-						<ion-img class="image" [src]="this.item.images[0]"></ion-img>
-						
+						<ion-img class="image" [src]="this.cell.images[0]"></ion-img>
+
 					</ion-card-content>
 				</ion-card>
 			</ion-col>
