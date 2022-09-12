@@ -6,15 +6,29 @@
 		</ion-buttons>
 
 		<ion-buttons slot="end">
+			<ion-button mode="md" *ngIf="this.meal.id > 0 "(click)="delete(this.meal.id)">Delete</ion-button>
 			<ion-button mode="md" (click)="save()">Save</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 
+<ion-modal [isOpen]="isModalOpen" #modal trigger="open-modal">
+	<ng-template>
+		<ion-content>
+		  <ion-toolbar>
+			<ion-buttons slot="start">
+			  <ion-button color="dark" (click)="modal.dismiss()">Close</ion-button>
+			</ion-buttons>
+		  </ion-toolbar>
+		 <app-recipe-search (addRecipeEvent)="addRecipe($event)"></app-recipe-search>
+		</ion-content>
+	</ng-template>
+</ion-modal>
+
 <ion-content>
 	<ion-card>
 		<ion-card-header>
-			<ion-card-title>{{meal.name || "Meal"}}</ion-card-title>
+			<ion-card-title> <ion-input placeholder="meal name" [(ngModel)]="this.meal.name"> </ion-input></ion-card-title>
 			<ion-card-subtitle>{{meal.user}}</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
@@ -23,15 +37,16 @@
 					<ion-icon name="camera"></ion-icon>
 				</ion-fab-button>
 			</ion-fab>
+			<ion-img width="80px" height="80px" class="image" [src]="this.meal.images[0]"></ion-img>
 			<ion-card-title>Recipes</ion-card-title>
 			<ion-list>
 				<ion-item lines="none">
-					<ion-button (click)="addRecipe()">
+					<ion-button id="open-modal" expand="block" (click)="setOpen(true)">
 						<ion-icon name="add"></ion-icon>
 					</ion-button>
 				</ion-item>
 				<ion-row *ngFor="let recipe of meal.recipes">
-					<ion-col size="10">
+					<ion-col size="8">
 						<ion-item>
 							<ion-label>{{recipe.name}}</ion-label>
 						</ion-item>
@@ -45,4 +60,7 @@
 			</ion-list>
 		</ion-card-content>
 	</ion-card>
+
 </ion-content>
+
+

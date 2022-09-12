@@ -1,3 +1,4 @@
+import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { EditorPage } from './editor.page';
     IonicModule,
     EditorPageRoutingModule
   ],
-  declarations: [EditorPage]
+  declarations: [EditorPage, RecipeSearchComponent]
 })
 export class EditorPageModule {}

@@ -8,12 +8,12 @@ const routes: Routes = [
 		component: MealsPage
 	},
 	{
-		path: ':id',
-		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
-	},
-	{
 		path: 'create',
 		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
+	},
+	{
+		path: ':id',
+		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
 	},
 	{
 		path: ':id/edit',

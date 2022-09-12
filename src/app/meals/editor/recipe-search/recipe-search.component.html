@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-label>
+    <h1>Recipe Search</h1>
+    <ion-item >
+      <ion-input placeholder="Search" [(ngModel)]="mSearch"></ion-input>
+    </ion-item>
+
+    <ion-label *ngFor="let item of this.recipes"> 
+      <ion-item lines ="none" >
+        <ion-label>{{item.name}}</ion-label>
+        <ion-button (click)="addRecipe(item)"> add </ion-button>
+      </ion-item>
+    </ion-label>
+  </ion-label>
+</ion-content>

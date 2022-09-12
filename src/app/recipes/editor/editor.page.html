@@ -2,10 +2,8 @@
 	<ion-toolbar>
 		<ion-title slot="start">YUMMY</ion-title>
         <ion-buttons slot="secondary">
-			<ion-button (click)="updateRecipe()"color="dark"[routerLink]="['/recipes']"><ion-icon name="save-outline"></ion-icon></ion-button>
-        </ion-buttons>
-		<ion-buttons slot="secondary">
-			<ion-button (click)="deleteRecipe()"color="dark" [routerLink]="['/recipes']"><ion-icon name="trash-bin-outline"></ion-icon></ion-button>
+			<ion-button (click)="deleteRecipe()"color="dark" [routerLink]="['/recipes']">Delete</ion-button>
+			<ion-button (click)="updateRecipe()"color="dark" [routerLink]="['/recipes']">Safe</ion-button>
         </ion-buttons>
     </ion-toolbar>
 			<ion-toolbar>

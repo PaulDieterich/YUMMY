@@ -16,9 +16,11 @@ import {Recipe} from '../../recipes/recipe.class';
 })
 export class EditorPage implements OnInit {
 
+	isModalOpen = false;
 	meal = new Meal();
-
-	constructor(private service: MealsService, private route: ActivatedRoute) { }
+	constructor(private service: MealsService, private route: ActivatedRoute) {
+		this.service.auth('user','user');
+	 }
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
@@ -38,12 +40,14 @@ export class EditorPage implements OnInit {
 		const base64 = 'data:image/png;base64,' + capturedPhoto.base64String;
 		this.meal.images.push(base64);
 	}
-
-	addRecipe()	{
+	setOpen(isOpen: boolean){
+		this.isModalOpen = isOpen;
+	}
+	addRecipe(newRecipe: Recipe) {
 		// Show recipe selection dialog
-		const recipe = new Recipe();
-		recipe.name = `New recipe ${this.meal.recipes.length + 1}`;
-		this.meal.recipes.push(recipe);
+		console.log(newRecipe);
+		this.meal.recipes.push(newRecipe);
+		console.log(this.meal.recipes);
 	}
 
 	removeRecipe(recipe: Recipe) {
@@ -52,7 +56,10 @@ export class EditorPage implements OnInit {
 			this.meal.recipes.splice(index, 1);
 		}
 	}
-
+	delete(id: number){
+		this.service.delete(id).subscribe(_ => {
+		});
+	}
 	save() {
 		if (!this.meal.id) {
 			this.service.create(this.meal).subscribe(data => {
