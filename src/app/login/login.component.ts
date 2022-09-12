@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 			this.userService.get().subscribe(user => {
 				console.log(this.user);
 				this.loggedIn = true;
-				this.user = user;
+				//this.user = user;
 				localStorage.setItem('user', JSON.stringify(this.user));
 				this.output();
 				return this.modalCtrl.dismiss();
