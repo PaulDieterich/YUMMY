@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{example.name || 'Not Found'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-label>Attribute: </ion-label>
+	<ion-input [(ngModel)]="example.attribute" />
+	<ion-button (click)="save()">Speichern</ion-button>
+</ion-content>
