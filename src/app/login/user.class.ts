@@ -1,33 +1,15 @@
-import { Recipe } from '../recipes/recipe.class';
-import {Entity} from '../common/entity.class';
+export class User {
 
-export class User implements Entity {
+	public username: string;
+	public password: string;
 
-    public id: number;
-    public name: string;
-    public role: string;
-    public password: string;
-    public readonly recipes: Array<Recipe>;
-    constructor() {
-        this.id = -1;
-        this.name = '';
-        this.role = '';
-        this.password = '';
-    }
-    getId(): number {
-        return this.id;
-    }
-    public apply(user: User) {
-		this.id = user.id;
-        this.name = user.name;
-        this.role = user.role;
-        this.password = user.password;
-        this.recipes.splice(0, this.recipes.length, ...user.recipes);
+	constructor() {
+		this.username = '';
+		this.password = '';
 	}
-}
-export enum UserAttribute {
-	id = 'id',
-	name = 'name',
-	role = 'role',
-    recipe = 'recipe'
+
+	public apply(user: User) {
+		this.username = user.username;
+		this.password = user.password;
+	}
 }

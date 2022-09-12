@@ -1,58 +1,64 @@
-import { UserService } from '../common/user.service';
-import { Component,Input, OnInit } from '@angular/core';
-import { User } from '../common/user.class';
+import {UserService} from './user.service';
+import {Component, OnInit} from '@angular/core';
+import {User} from './user.class';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  @Input() username: string;
-  @Input() password: string;
-  error: string;
-  user: User = new User();
-  loggedIn = false;
-  constructor(private userService: UserService) {
-    userService.auth('user','user');
-  }
+	user: User = new User();
+	error: string;
+	loggedIn = false;
 
-  ngOnInit() {}
+	constructor(private userService: UserService) {
+		userService.auth('user', 'user');
+	}
 
-  register(){
-    console.log('register');
-    if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
-      this.userService.list().subscribe(data => {
-        data.forEach(user => {
-          if(this.username === user.name){
-            this.error = 'Username already exists';
-          }else{
-            this.userService.create(this.user).subscribe(u => {
-              this.user = u;
-            });
-          }
-        });
-      });
-    }
-  }
-  logIn(){
-    if(this.username.toLocaleLowerCase().trim() !== '' && this.password.toLocaleLowerCase().trim() !== ''){
-      console.log(this.username);
-      this.userService.list().subscribe(data => {
-        data.forEach(user => {
-          if(this.username === user.name){
-            this.userService.get(user.id).subscribe(u => {
-              if(this.password === u.password){
-                this.loggedIn = true;
-                localStorage.setItem('user',this.user.name);
-                console.log(this.loggedIn);
-              }
-            });
-          }
-        });
-      });
-    }else{
-      this.error = 'Please enter a username and password';
-    }
-  }
+	ngOnInit() {
+	}
+
+	register() {
+		if (this.user.username && this.user.username.trim().length > 0 && this.user.password && this.user.password.trim().length > 0) {
+			this.userService.list().subscribe(data => {
+				data.forEach(user => {
+					if (this.user.username === user.username) {
+						this.error = 'Username already exists';
+						return;
+					}
+				});
+
+				this.userService.create(this.user).subscribe(user => {
+					this.user = user;
+					this.loggedIn = true;
+					localStorage.setItem('user', JSON.stringify(this.user));
+				});
+			});
+		} else {
+			this.error = 'Bitte geben Sie einen Benutzernamen und ein Passwort ein';
+		}
+	}
+
+	logIn() {
+		if (this.user.username && this.user.username.length > 0 && this.user.password && this.user.password.length > 0) {
+			this.userService.get().subscribe(user => {
+				this.user = user;
+				this.loggedIn = true;
+				localStorage.setItem('user', JSON.stringify(this.user));
+			}, error => {
+				this.error = 'Benutzername oder Passwort falsch';
+				this.loggedIn = false;
+				localStorage.setItem('user', null);
+			});
+		} else {
+			this.error = 'Bitte geben Sie einen Benutzernamen und ein Passwort ein';
+		}
+	}
+
+	logOut() {
+		this.user = new User();
+		this.loggedIn = false;
+		localStorage.setItem('user', null);
+	}
 }

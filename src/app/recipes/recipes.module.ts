@@ -1,14 +1,14 @@
-import { MealsPageRoutingModule } from './../meals/meals-routing.module';
-import {IonicModule} from '@ionic/angular';
-import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
+
+import {IonicModule} from '@ionic/angular';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {RecipesPage} from './recipes.page';
-
 
 import {RecipesPageRoutingModule} from './recipes-routing.module';
-import { LoginComponent } from '../login/login.component';
+import {MealsPageRoutingModule} from '../meals/meals-routing.module';
+
+import {RecipesPage} from './recipes.page';
+
 @NgModule({
 	imports: [
 		IonicModule,
@@ -18,7 +18,7 @@ import { LoginComponent } from '../login/login.component';
 		MealsPageRoutingModule,
 	],
 	declarations: [
-		RecipesPage, LoginComponent
+		RecipesPage
 	]
 })
 export class RecipesPageModule {
