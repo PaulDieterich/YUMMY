@@ -1,3 +1,5 @@
+import { LoginComponent } from 'src/app/login/login.component';
+
 import {NgModule} from '@angular/core';
 
 import {IonicModule} from '@ionic/angular';
@@ -18,7 +20,7 @@ import {RecipesPage} from './recipes.page';
 		MealsPageRoutingModule,
 	],
 	declarations: [
-		RecipesPage
+		RecipesPage, LoginComponent
 	]
 })
 export class RecipesPageModule {

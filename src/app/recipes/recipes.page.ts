@@ -11,8 +11,10 @@ import {Filter, FilterType} from '../common/list.class';
 })
 export class RecipesPage implements OnInit, OnChanges {
 	public mSearch: string;
+	loggedIn = false;
 	public recipes = new Array<Recipe>();
 	newId: number;
+	isModalOpen = false;
 	constructor(private service: RecipesService) { }
 
 	ngOnInit() {
@@ -35,6 +37,18 @@ export class RecipesPage implements OnInit, OnChanges {
 				this.recipes = data;
 				console.log(`image array: ${data[0].images}`);
 			});
+		}
+	}
+	input(login: boolean){
+		this.loggedIn = login;
+		console.log(`input: ${this.loggedIn}`);
+	}
+	setOpen(isOpen: boolean){
+		if(!this.loggedIn){
+			this.isModalOpen = isOpen;
+		}else{
+			this.loggedIn = false;
+			localStorage.removeItem('user');
 		}
 	}
 }
