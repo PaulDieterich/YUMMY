@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+import { LoginComponent } from 'src/app/login/login.component';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
@@ -15,12 +17,16 @@ import {MealsService} from './meals/meals.service';
 
 @NgModule({
 	declarations: [AppComponent],
-	imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', {
+	imports: [BrowserModule,
+		IonicModule.forRoot(),
+		AppRoutingModule,
+		HttpClientModule,
+		ServiceWorkerModule.register('ngsw-worker.js', {
 		enabled: environment.production,
 		// Register the ServiceWorker as soon as the application is stable
 		// or after 30 seconds (whichever comes first).
 		registrationStrategy: 'registerWhenStable:30000'
-	})],
+	}),  FormsModule],
 	providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, RecipesService, MealsService],
 	bootstrap: [AppComponent],
 })
