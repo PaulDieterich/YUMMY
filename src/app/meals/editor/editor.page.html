@@ -6,7 +6,7 @@
 		</ion-buttons>
 
 		<ion-buttons slot="end">
-			<ion-button mode="md" *ngIf="this.meal.id > 0 "(click)="delete()">Löschen</ion-button>
+			<ion-button mode="md" *ngIf="this.meal.id > 0 " [routerLink]="['/meals']" routerLinkActive="router-link-active" ] (click)="delete()">Loeschen</ion-button>
 			<ion-button mode="md" (click)="save()">Speichern</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
