@@ -22,10 +22,8 @@
 
 			<ion-card-subtitle>
 				<ion-label>
-					<p>
-						<ion-icon name="timer-outline"></ion-icon>
-						{{this.recipe.time}} Minute(n)
-					</p>
+					<ion-icon name="timer-outline"></ion-icon>
+					<ion-input [(ngModel)]="this.recipe.time" ></ion-input> Minute(n)
 				</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>

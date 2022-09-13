@@ -7,7 +7,7 @@ export class Recipe implements Entity {
 	public name: string;
 	public readonly images: Array<string>;
 	public readonly instructions: Array<string>;
-	public time?: number;
+	public time: number;
 	public source: string;
 	public readonly tags: Array<string>;
 	public readonly ingredients: Array<Ingredient>;
@@ -17,6 +17,7 @@ export class Recipe implements Entity {
 		this.name = '';
 		this.images = [];
 		this.instructions = [];
+		this.time = 1;
 		this.source = '';
 		this.tags = [];
 		this.ingredients = [];
