@@ -72,11 +72,13 @@ export class EditorPage implements OnInit,OnChanges {
 	updateRecipe(){
 		const u = JSON.parse(localStorage.getItem('user'));
 		this.recipe.source = u.username;
+		this.recipe.time = 0;
 		console.log(`${this.recipe.name} got updated`);
 		this.recipe.ingredients.forEach(element => {
 			if(element.amount < 1){
 				element.amount = 1;
 			}
+			
 		});
 		if(this.id > 0){
 			this.recipes.update(this.recipe).subscribe(recipe =>{
