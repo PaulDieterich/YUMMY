@@ -7,7 +7,7 @@ export class Recipe implements Entity {
 	public name: string;
 	public readonly images: Array<string>;
 	public readonly instructions: Array<string>;
-	public time?: string;
+	public time?: number;
 	public source: string;
 	public readonly tags: Array<string>;
 	public readonly ingredients: Array<Ingredient>;

@@ -14,11 +14,9 @@ import {Ingredient} from '../recipes/ingredient.class';
 })
 export class MealsService {
 
-	private http: HttpClient;
 	private service: ApiService<Meal, MealAttribute>;
 
-	constructor(http: HttpClient) {
-		this.http = http;
+	constructor(private http: HttpClient) {
 		this.service = new ApiService<Meal, MealAttribute>(http, '/meals');
 	}
 
@@ -72,34 +70,24 @@ export class MealsService {
 			let count = 0;
 			const target = meal.recipes.length + meal.ingredients.length + 1;
 
-			meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
-				new API<Recipe>(this.http)
-					.auth(this.service.user, this.service.password)
-					.post('/meals/{mealId}/recipes/{recipeId}', meal.id, recipe.id)
-					.subscribe(_ => {
-						if (++count === target) {
-							observer.next(meal);
-							observer.complete();
-						}
-					});
-			});
-
-			meal.ingredients.forEach(ingredient => {
-				new API<Ingredient>(this.http)
-					.auth(this.service.user, this.service.password)
-					.body(ingredient)
-					.post('/meals/{id}/ingredients', meal.id, ingredient)
-					.subscribe(_ => {
-						if (++count === target) {
-							observer.next(meal);
-							observer.complete();
-						}
-					});
-			});
-
-			this.service.create(meal)
+			this.service
+				.create(meal)
 				.subscribe(data => {
 					meal.apply(data);
+
+					meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
+						new API<Recipe>(this.http)
+							.auth(this.service.user, this.service.password)
+							.queryParam('recipeId', recipe.id)
+							.post('/meals/{mealId}/recipes', meal.id)
+							.subscribe(_ => {
+								if (++count === target) {
+									observer.next(meal);
+									observer.complete();
+								}
+							});
+					});
+
 					if (++count === target) {
 						observer.next(meal);
 						observer.complete();
@@ -113,45 +101,27 @@ export class MealsService {
 			let count = 0;
 			const target = meal.recipes.length + meal.ingredients.length + 3;
 
-			new API(this.http)
-				.auth(this.service.user, this.service.password)
-				.delete('/meals/{id}/recipes', meal.id)
-				.subscribe(_ => {
-					++count;
-					meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
-						new API<Recipe>(this.http)
-							.auth(this.service.user, this.service.password)
-							.post('/meals/{mealId}/recipes/{recipeId}', meal.id, recipe.id)
-							.subscribe(__ => {
-								if (++count === target) {
-									observer.next(meal);
-									observer.complete();
-								}
-							});
-					});
-				});
-
-			new API(this.http)
-				.auth(this.service.user, this.service.password)
-				.delete('/meals/{id}/ingredients', meal.id)
-				.subscribe(_ => {
-					++count;
-					meal.ingredients.forEach(ingredient => {
-						new API<Ingredient>(this.http)
-							.auth(this.service.user, this.service.password)
-							.body(ingredient)
-							.post('/meals/{id}/ingredients', meal.id)
-							.subscribe(__ => {
-								if (++count === target) {
-									observer.next(meal);
-									observer.complete();
-								}
-							});
-					});
-				});
-
 			this.service.update(meal).subscribe(data => {
 				meal.apply(data);
+
+				new API(this.http)
+					.auth(this.service.user, this.service.password)
+					.delete('/meals/{id}/recipes', meal.id)
+					.subscribe(_ => {
+						++count;
+						meal.recipes.filter(recipe => recipe.id > 0).forEach(recipe => {
+							new API<Recipe>(this.http)
+								.auth(this.service.user, this.service.password)
+								.post('/meals/{mealId}/recipes/{recipeId}', meal.id, recipe.id)
+								.subscribe(__ => {
+									if (++count === target) {
+										observer.next(meal);
+										observer.complete();
+									}
+								});
+						});
+					});
+
 				if (++count === target) {
 					observer.next(meal);
 					observer.complete();
@@ -160,7 +130,7 @@ export class MealsService {
 		});
 	}
 
-	delete(id: number): Observable<boolean> {
-		return this.service.delete(id);
+	delete(meal: Meal): Observable<boolean> {
+		return this.service.delete(meal.id);
 	}
 }

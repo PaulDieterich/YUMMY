@@ -24,9 +24,12 @@ export class EditorPage implements OnInit {
 
 	ngOnInit() {
 		this.route.paramMap.subscribe(params => {
-			this.service.get(+params.get('id')).subscribe(data => {
-				this.meal = data;
-			});
+			const id = +params.get('id');
+			if (id > 0) {
+				this.service.get(id).subscribe(data => {
+					this.meal = data;
+				});
+			}
 		});
 	}
 
@@ -56,17 +59,18 @@ export class EditorPage implements OnInit {
 			this.meal.recipes.splice(index, 1);
 		}
 	}
-	delete(id: number){
-		this.service.delete(id).subscribe(_ => {
+	delete(){
+		this.service.delete(this.meal).subscribe(_ => {
 		});
 	}
 	save() {
-		if (!this.meal.id) {
-			this.service.create(this.meal).subscribe(data => {
+		if (this.meal.id > 0) {
+			this.service.update(this.meal).subscribe(data => {
 				this.meal.apply(data);
 			});
 		} else {
-			this.service.update(this.meal).subscribe(data => {
+			this.meal.user = 'user';
+			this.service.create(this.meal).subscribe(data => {
 				this.meal.apply(data);
 			});
 		}

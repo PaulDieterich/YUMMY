@@ -6,8 +6,8 @@
 		</ion-buttons>
 
 		<ion-buttons slot="end">
-			<ion-button mode="md" *ngIf="this.meal.id > 0 "(click)="delete(this.meal.id)">Delete</ion-button>
-			<ion-button mode="md" (click)="save()">Save</ion-button>
+			<ion-button mode="md" *ngIf="this.meal.id > 0 "(click)="delete()">Löschen</ion-button>
+			<ion-button mode="md" (click)="save()">Speichern</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
 		<ion-content>
 		  <ion-toolbar>
 			<ion-buttons slot="start">
-			  <ion-button color="dark" (click)="modal.dismiss()">Close</ion-button>
+			  <ion-button color="dark" (click)="modal.dismiss()">Schließen</ion-button>
 			</ion-buttons>
 		  </ion-toolbar>
 		 <app-recipe-search (addRecipeEvent)="addRecipe($event)"></app-recipe-search>
@@ -38,7 +38,7 @@
 				</ion-fab-button>
 			</ion-fab>
 			<ion-img width="80px" height="80px" class="image" [src]="this.meal.images[0]"></ion-img>
-			<ion-card-title>Recipes</ion-card-title>
+			<ion-card-title>Rezepte</ion-card-title>
 			<ion-list>
 				<ion-item lines="none">
 					<ion-button id="open-modal" expand="block" (click)="setOpen(true)">
