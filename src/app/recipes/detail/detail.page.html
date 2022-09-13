@@ -22,14 +22,14 @@
 
 			<ion-card-subtitle >
 					<ion-label>
-						<p><ion-icon name="time-outline"></ion-icon> {{this.recipe.time}} Time</p>
+						<p><ion-icon name="time-outline"></ion-icon> {{this.recipe.time}} Minute(n)</p>
 						<p>Zuletzt bearbeitet von: {{this.recipe.source}}</p>
 					</ion-label>
 			</ion-card-subtitle>
 		</ion-card-header>
 		<ion-card-content>
 			<ion-fab  horizontal="end" vertical="top">
-				<ion-fab-button [routerLink]="['/recipes/editor',this.recipe.id]"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
+				<ion-fab-button [routerLink]="['/recipes',this.recipe.id,'edit']"(click)="editRecipe(this.recipe.id)"color="light"> <ion-icon name="create-outline"></ion-icon></ion-fab-button>
 			  </ion-fab>
 			  <ion-img class="image" [src]="this.recipe.images[0]">
 			</ion-img>

@@ -8,19 +8,7 @@ const routes: Routes = [
 		component: RecipesPage,
 	},
 	{
-		path: 'detail',
-		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
-	},
-	{
-		path: 'detail/:id',
-		loadChildren: () => import('./detail/detail.module').then(m => m.DetailPageModule)
-	},
-	{
-		path: 'editor/:id',
-		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
-	},
-	{
-		path: 'editor',
+		path: 'create',
 		loadChildren: () => import('./editor/editor.module').then(m => m.EditorPageModule)
 	},
 	{

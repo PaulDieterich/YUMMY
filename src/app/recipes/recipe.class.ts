@@ -31,6 +31,7 @@ export class Recipe implements Entity {
 		this.name = recipe.name;
 		this.images.splice(0, this.images.length, ...recipe.images);
 		this.instructions.splice(0, this.instructions.length, ...recipe.instructions);
+		this.time = recipe.time;
 		this.source = recipe.source;
 		this.tags.splice(0, this.tags.length, ...recipe.tags);
 	}

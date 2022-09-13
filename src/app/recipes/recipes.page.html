@@ -2,7 +2,7 @@
 	<ion-toolbar>
 		<ion-title slot="start">YUMMY</ion-title>
         <ion-buttons slot="secondary">
-          <ion-button [routerLink]="['editor']">
+          <ion-button [routerLink]="['create']">
 			<ion-icon slot="icon-only" name="add-outline">
 			</ion-icon>
 		</ion-button>
@@ -16,7 +16,7 @@
 	<ion-toolbar>
 		<ion-searchbar
 			inputmode="search"
-			placeholder="Search recipe"
+			placeholder="Rezept suchen"
 			show-cancel-button="focus"
 			[(ngModel)]="mSearch"
 			(ionChange)="ngOnChanges()">
@@ -45,7 +45,10 @@
 					<ion-card-header>
 						<ion-item lines="none">
 							{{cell.name}}
-							{{cell.time}}
+						</ion-item>
+						<ion-item lines="none">
+								<ion-icon name="timer-outline"></ion-icon>
+								{{cell.time}} Minute(n)
 						</ion-item>
 					</ion-card-header>
 					<ion-card-content>
